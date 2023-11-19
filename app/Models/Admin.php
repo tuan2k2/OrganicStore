@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 
-class Users extends Model
+class Admin extends Model
 {
     use HasFactory;
+    protected $table = 'admin'; // Tên bảng
+
+    protected $fillable = ['name', 'email', 'password'];
 }

@@ -10,6 +10,9 @@ use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\Admin\HomeAdminController;
+use GuzzleHttp\Middleware;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,11 +24,15 @@ use App\Http\Controllers\Admin\HomeAdminController;
 |
 */
 
+Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
+Route::post('/login', [LoginController::class, 'checkLogin'])->name('login.authenticate');
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/products', [ProductsController::class, 'getAllProducts'])->name('Products');
 Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProductDetails'])->name('ProductDetails');
 Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
-Route::get('/admin', [HomeAdminController::class, 'index'])->name('dashboard');
-Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
+Route::group(['middleware' => ['isAdmin'], 'prefix' => 'admin'], function () {
+    Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
+});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/{tenKH}', [HomeController::class, 'index'])->name('home');

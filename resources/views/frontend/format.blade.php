@@ -10,18 +10,17 @@
     <title>Ogani | Template</title>
 
     <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/elegant-icons.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css')}}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/style.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/elegant-icons.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/nice-select.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/jquery-ui.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
 </head>
 
 <body>
@@ -51,29 +50,19 @@
             </div>
         </div>
         <div class="humberger__menu__widget">
-            @guest
             <div class="header__top__right__language">
                 <div class="header__top__right__auth">
-                    <a href="{{ route('login') }}"><i class="fa fa-user"></i> Đăng nhập</a>
-                </div>
-            </div>
-            @else
-            <div class="header__top__right__language">
-                <div class="header__top__right__auth">
-                    <a href=""><i class="fa fa-user"></i> {{ auth()->user()->username }}</a>
+                    <a href="#"><i class="fa fa-user"></i> Login</a>
                 </div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="#">Spanis</a></li>
+                    <li><a href="#">English</a></li>
                 </ul>
             </div>
             <div class="header__top__right__auth" style="margin-left: 20px">
-                <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-user"></i> Logout</a>
-                <form action="{{ route('logout') }}" id="logout-form" method="post">
-                    @csrf
-                </form>
+                <a href="#"><i class="fa fa-user"></i> Register</a>
             </div>
-            @endguest
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
@@ -131,11 +120,13 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
+
                         <div class="header__top__right">
                             <div class="header__top__right__language header__top__right__auth">
-                                <a class="d-inline" href="{{ route('login') }}"><i class="fa fa-user"></i> Đăng nhập</a>
+                                <a class="d-inline" href="{{ route('login')}}"><i class="fa fa-user"></i> Đăng nhập</a>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -220,6 +211,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
+
     @yield('content')
 
     <!-- Footer Section Begin -->
@@ -229,12 +221,12 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src=" asset('frontend/img/logo.png ' )}} " alt="" /></a>
+                            <a href="./index.html"><img src="{{ asset('frontend/img/logo.png') }}" alt="" /></a>
                         </div>
                         <ul>
-                            <li>Địa chỉ: 48 Cao Thắng, Hải Châu, Đà Nẵng</li>
-                            <li>SĐT: +65 11.188.888</li>
-                            <li>Email: organicstore@gmail.com</li>
+                            <li>Address: 60-49 Road 11378 New York</li>
+                            <li>Phone: +65 11.188.888</li>
+                            <li>Email: hello@colorlib.com</li>
                         </ul>
                     </div>
                 </div>
@@ -261,16 +253,13 @@
                 </div>
                 <div class="col-lg-4 col-md-12">
                     <div class="footer__widget">
-                        <h6>Tham gia cùng chúng tôi ngay bây giờ</h6>
+                        <h6>Join Our Newsletter Now</h6>
                         <p>
-                            Nhập Email của bạn để có thể nhận các ưu đãi
-                            sớm nhất.
+                            Get E-mail updates about our latest shop and special offers.
                         </p>
                         <form action="#">
-                            <input type="text" placeholder="Nhập Email của bạn" />
-                            <button type="submit" class="site-btn">
-                                Đăng ký
-                            </button>
+                            <input type="text" placeholder="Enter your mail" />
+                            <button type="submit" class="site-btn">Subscribe</button>
                         </form>
                         <div class="footer__widget__social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
@@ -289,37 +278,32 @@
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 Copyright &copy;
                                 <script>
-                                    document.write(
-                                        new Date().getFullYear()
-                                    );
+                                    document.write(new Date().getFullYear());
                                 </script>
-                                All rights reserved | This template is made
-                                with
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                                by
+                                All rights reserved | This template is made with
+                                <i class="fa fa-heart" aria-hidden="true"></i> by
                                 <a href="https://colorlib.com" target="_blank">Colorlib</a>
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             </p>
                         </div>
                         <div class="footer__copyright__payment">
-                            <img src=" asset('frontend/img/payment-item.png  ' )}}" alt="" />
+                            <img src="img/payment-item.png" alt="" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- Footer Section End -->
 
-    <!-- Js Plugins -->
-    <script src="{{asset('frontend/js/jquery-3.3.1.min.js')}}"></script>
-    <script src="{{asset('frontend/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery.nice-select.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery-ui.min.js')}}"></script>
-    <script src="{{asset('frontend/js/jquery.slicknav.js')}}"></script>
-    <script src="{{asset('frontend/js/mixitup.min.js')}}"></script>
-    <script src="{{asset('frontend/js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('frontend/js/main.js')}}"></script>
+    <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('frontend/js/mixitup.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>

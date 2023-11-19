@@ -28,16 +28,16 @@
             </form>
         </div>
         <div class="form-container sign-in">
-            <form method="POST" action="{{route('login}}">
+            <form method="POST" action="{{ route('login.authenticate') }}">
                 @csrf
                 <h1>Đăng nhập</h1>
-                <div class="social-icons">
+                <div class=" social-icons">
                     <a href="#" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
                     <a href="#" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
                 </div>
                 <span>hoặc sử dụng Email và mật khẩu của bạn</span>
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mật khẩu">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Mật khẩu">
                 <p>Quên mật khẩu? Nhấn tại <a id="forgot_pass" href="#">đây</a></p>
                 <button>Đăng nhập</button>
             </form>
