@@ -37,7 +37,7 @@
                 </div>
                 <span>hoặc sử dụng Email và mật khẩu của bạn</span>
                 <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Mật khẩu">
+                <input type="matKhau" name="matKhau" placeholder="Mật khẩu">
                 <p>Quên mật khẩu? Nhấn tại <a id="forgot_pass" href="#">đây</a></p>
                 <button>Đăng nhập</button>
             </form>

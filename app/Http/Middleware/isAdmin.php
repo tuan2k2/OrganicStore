@@ -17,10 +17,10 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = $request->input('id');
+        $id = $request->input('idAD');
 
         // Kiểm tra xem email có đuôi '@admin.com'
-        $isAdminId = DB::table('admin')->where('id', $id)->exists();
+        $isAdminId = DB::table('admin')->where('idAD', $id)->exists();
         if ($isAdminId) {
             return $next($request); // Cho phép tiếp tục nếu email có trong bảng 'admin'
         } else {

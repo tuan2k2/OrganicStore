@@ -35,4 +35,3 @@ Route::group(['middleware' => ['isAdmin'], 'prefix' => 'admin'], function () {
     Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/{tenKH}', [HomeController::class, 'index'])->name('home');
