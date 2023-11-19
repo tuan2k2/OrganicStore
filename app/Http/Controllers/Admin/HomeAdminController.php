@@ -18,7 +18,6 @@ class HomeAdminController extends Controller
         // $products = new products();
 
         // $productsList = $products->getAllProducts();
-        $dung =  View('avbc');
         return view('Admin.Home');
     }
 }
