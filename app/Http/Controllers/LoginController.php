@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\KhachHang;
 use PharIo\Manifest\Email;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
 
 class LoginController extends Controller
@@ -14,6 +15,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
+        $this->middleware('guest')->except('logout');
     }
     public function getLogin()
     {
@@ -34,16 +36,23 @@ class LoginController extends Controller
         if ($isAdminEmail && $isAdminPass) {
 
             $id = DB::table('admin')->where('email', $email)->value('idAD');
-            return redirect()->route('admin.dashboard', ['idAD' => $id]);
+            $admin = DB::table('admin')->where('idAD', $id)->first();
+            session(['admin_data' => $admin]);
+            return redirect()->route('admin.dashboard', ['idAD' => $admin->idAD]);
         } elseif ($isCustomerEmail && $isCustomerPass) {
-            // Người dùng là Khách hàng, chuyển hướng tới trang khách hàng
-            // Thực hiện kiểm tra mật khẩu ở đây nếu cần
-
-            // $tenKH = DB::table('khachhang')->where('email', $email)->value('tenKH');
-            // session(['username' => $tenKH, 'user_type' => 'customer']);
+            $id = DB::table('khachhang')->where('email', $email)->value('idKH');
+            $khachhang = DB::table('khachhang')->where('idKH', $id)->first();
+            session(['khachHang_data' => $khachhang]);
             return redirect()->route('home');
         } else {
             return 'email hoặc pass không đúng';
         }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->forget('khachHang_data');
+
+        return redirect()->route('login'); // Hoặc điều hướng tới trang đăng nhập
     }
 }

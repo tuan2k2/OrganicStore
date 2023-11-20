@@ -120,13 +120,27 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
-
+                        </span>
+                        @if(!Session::has('khachHang_data'))
                         <div class="header__top__right">
                             <div class="header__top__right__language header__top__right__auth">
-                                <a class="d-inline" href="{{ route('login')}}"><i class="fa fa-user"></i> Đăng nhập</a>
+                                <a class="d-inline" href="{{ route('login') }}"><i class="fa fa-user"></i>Login</a>
                             </div>
                         </div>
-
+                        @else
+                        <div class="header__top__right">
+                            <div class="header__top__right__language header__top__right__auth">
+                                <a class="d-inline" href="#"><i class="fa fa-user"></i> {{ session('khachHang_data')->tenKH}}</a>
+                                <span class="arrow_carrot-down"></span>
+                                <ul>
+                                    <li><a href="#">Profile</a></li>
+                                </ul>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a class="d-inline" href="{{ route('logout') }}"><i class="fa fa-user"></i>Đăng Xuất</a>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
