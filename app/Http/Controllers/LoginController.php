@@ -43,7 +43,7 @@ class LoginController extends Controller
             $id = DB::table('khachhang')->where('email', $email)->value('idKH');
             $khachhang = DB::table('khachhang')->where('idKH', $id)->first();
             session(['khachHang_data' => $khachhang]);
-            return redirect()->route('home', ['idKH' => $khachhang->idKH]);
+            return redirect()->route('home');
         } else {
             return 'email hoặc pass không đúng';
         }

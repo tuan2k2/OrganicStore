@@ -7,6 +7,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class KhachHangController extends Controller
 {
@@ -17,46 +18,25 @@ class KhachHangController extends Controller
 
     public function register(Request $request)
     {
-        $name = $request->input('tenKH');
+
+        $tenKH = $request->input('tenKH');
         $diaChiKH = $request->input('diaChiKH');
-        $SDT = $request->input('SDT');
+        $sdt = $request->input('SDT');
         $email = $request->input('email');
         $password = $request->input('password');
-
-        $validatedData = [
-            'tenKH' => $name,
-            'diaChiKH' => $diaChiKH,
-            'SDT' => $SDT,
-            'Email' => $email,
-            'matKhau' => $password,
-        ];
-
-        // Kiểm tra điều kiện các trường dữ liệu ở đây
-        // ...
-
-        if (!str_ends_with($email, '@gmail.com')) {
-            // Lưu thông báo lỗi vào Session
-            Session::flash('error', 'Email phải kết thúc bằng @gmail.com');
-            return redirect()->back();
+        $existingEmail = DB::table('KhachHang')->where('Email', $email)->exists();
+        $existingEmail = DB::table('KhachHang')->where('Email', $email)->exists();
+        if ($existingEmail) {
+            return redirect()->back()->with('alert', 'Email đã tồn tại');
         }
 
-        // Nếu email hợp lệ, thêm dữ liệu vào cơ sở dữ liệu bằng Query Builder
-        $inserted = DB::table('KhachHang')->insert([
-            'tenKH' => $name,
+        DB::table('KhachHang')->insert([
+            'tenKH' => $tenKH,
             'diaChiKH' => $diaChiKH,
-            'SDT' => $SDT,
+            'SDT' => $sdt,
             'email' => $email,
             'matKhau' => $password,
         ]);
-
-        if ($inserted) {
-            // Lưu thông báo thành công vào Session
-            Session::flash('success', 'Đăng ký thành công');
-        } else {
-            // Lưu thông báo lỗi vào Session
-            Session::flash('error', 'Đã xảy ra lỗi khi đăng ký');
-        }
-
-        return redirect()->back();
+        return redirect()->route('login')->with('success', 'Đăng ký tài khoản thành công!');
     }
 }
