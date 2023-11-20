@@ -20,15 +20,16 @@ class KhachHangController extends Controller
     {
 
         $tenKH = $request->input('tenKH');
-        $diaChiKH = $request->input('diaChiKH');
+        $diaChiKH = null;
         $sdt = $request->input('SDT');
         $email = $request->input('email');
         $password = $request->input('password');
         $existingEmail = DB::table('KhachHang')->where('Email', $email)->exists();
         $existingEmail = DB::table('KhachHang')->where('Email', $email)->exists();
         if ($existingEmail) {
-            return redirect()->back()->with('alert', 'Email đã tồn tại');
+            return redirect()->route('login')->with('alert', 'Email đã tồn tại');
         }
+
 
         DB::table('KhachHang')->insert([
             'tenKH' => $tenKH,

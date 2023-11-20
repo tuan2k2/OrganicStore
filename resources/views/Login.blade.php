@@ -21,6 +21,13 @@
                 alert(errorMessage); // Hiển thị thông báo lỗi (nếu có)
             }
         };
+
+        window.onload = function() {
+            var alertMessage = '{{ session("alert") }}';
+            if (alertMessage) {
+                toastr.error(alertMessage); // Hiển thị thông báo lỗi
+            }
+        };
     </script>
 </head>
 
@@ -29,12 +36,15 @@
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form id="signUp" method="POST" action="{{ route('register') }}" onsubmit="return validateForm()">
+                <h1>Đăng ký tài khoản</h1>
+                <div class="social-icons">
+                    <a href="#" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
+                    <a href="#" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
+                </div>
+                <span>hoặc sử dụng Email để đăng ký tài khoản</span>
                 @csrf
                 <input type="text" name="tenKH" placeholder="Họ và tên" value="{{ old('tenKH') }}" id="tenKH">
                 <div id="errorTenKH" class="error-message"></div>
-
-                <input type="text" name="diaChiKH" placeholder="Address ID" value="{{ old('diaChiKH') }}" id="diaChiKH">
-                <div id="errorDiaChiKH" class="error-message"></div>
 
                 <input type="text" name="SDT" placeholder="Phone Number" value="{{ old('SDT') }}" id="SDT">
                 <div id="errorSDT" class="error-message"></div>
@@ -86,7 +96,6 @@
     <script>
         function validateForm() {
             var tenKH = document.getElementById('tenKH').value.trim();
-            var diaChiKH = document.getElementById('diaChiKH').value.trim();
             var SDT = document.getElementById('SDT').value.trim();
             var email = document.getElementById('email').value.trim();
             var password = document.getElementById('password').value.trim();
@@ -99,13 +108,6 @@
             } else {
                 document.getElementById('errorTenKH').innerHTML = '';
             }
-            if (diaChiKH === '') {
-                document.getElementById('errorDiaChiKH').innerHTML = 'Bạn phải nhập Address ID.';
-                return false;
-            } else {
-                document.getElementById('errorDiaChiKH').innerHTML = '';
-            }
-
             if (SDT === '') {
                 document.getElementById('errorSDT').innerHTML = 'Bạn phải nhập Phone Number.';
                 return false;
@@ -130,26 +132,6 @@
                 alert('Email không phải là địa chỉ email @gmail.com.');
                 return false;
             }
-
-            $.ajax({
-                url: '{{ route('
-                register ') }}',
-                method: 'POST',
-                data: {
-                    email: email
-                },
-                success: function(response) {
-                    if (response.exists) {
-                        document.getElementById('errorEmail').innerHTML = 'Email đã tồn tại trong cơ sở dữ liệu.';
-                        return false;
-                    } else {
-                        document.getElementById('errorEmail').innerHTML = '';
-                        // If email doesn't exist in the database, continue form submission
-                        return true;
-                    }
-                }
-            });
-
             if (password === '') {
                 document.getElementById('errorPassword').innerHTML = 'Bạn phải nhập Password.';
                 return false;
