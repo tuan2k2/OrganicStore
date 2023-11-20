@@ -13,19 +13,34 @@
 
     <div class="container" id="container">
         <div class="form-container sign-up">
-            <form>
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
                 <h1>Đăng ký tài khoản</h1>
+                @if(Session::has('error'))
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+                @endif
+
+                <!-- Hiển thị thông báo thành công nếu có -->
+                @if(Session::has('success'))
+                <div class="alert alert-success">
+                    {{ Session::get('success') }}
+                </div>
+                @endif
                 <div class="social-icons">
                     <a href="#" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
                     <a href="#" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
                 </div>
                 <span>hoặc sử dụng Email để đăng ký tài khoản</span>
-                <input type="text" placeholder="Họ và tên">
-                <input type="text" placeholder="SĐT">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Mật khẩu">
-                <button>Đăng ký</button>
+                <input type="text" name="tenKH" placeholder="Họ và tên">
+                <input type="text" name="diaChiKH" placeholder="Address ID">
+                <input type="text" name="SDT" placeholder="Phone Number">
+                <input type="email" name="email" placeholder="Email">
+                <input type="password" name="password" placeholder="Password">
+                <button type="submit">Đăng ký</button>
             </form>
+
         </div>
         <div class="form-container sign-in">
             <form method="POST" action="{{ route('login.authenticate') }}">
@@ -37,7 +52,7 @@
                 </div>
                 <span>hoặc sử dụng Email và mật khẩu của bạn</span>
                 <input type="email" name="email" placeholder="Email">
-                <input type="matKhau" name="matKhau" placeholder="Mật khẩu">
+                <input type="password" name="matKhau" placeholder="Mật khẩu">
                 <p>Quên mật khẩu? Nhấn tại <a id="forgot_pass" href="#">đây</a></p>
                 <button>Đăng nhập</button>
             </form>
