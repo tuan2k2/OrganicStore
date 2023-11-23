@@ -17,7 +17,6 @@
 
     <!-- Custom styles for this template-->
     <link href=" {{ asset('frontend_admin/css/sb-admin-2.min.css ' )}}" rel="stylesheet ">
-
 </head>
 
 <body id="page-top">
@@ -43,20 +42,14 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-
-
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     @php
-                                    $admin = session('admin_data');
+                                    $admin = session('admin_name');
                                     @endphp
-                                    {{$admin->tenAdmin}}
-
-
+                                    {{$admin}}
                                 </span>
                                 <img class="img-profile rounded-circle" src=" {{ asset('frontend_admin/img/undraw_profile.svg')}}">
                             </a>
@@ -75,7 +68,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ route('logout') }}">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

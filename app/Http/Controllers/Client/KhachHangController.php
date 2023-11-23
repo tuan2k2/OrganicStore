@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Nette\Utils\Json;
+use PhpParser\Node\Expr\Cast\String_;
 
 class KhachHangController extends Controller
 {
@@ -18,19 +20,15 @@ class KhachHangController extends Controller
 
     public function register(Request $request)
     {
-
         $tenKH = $request->input('tenKH');
         $diaChiKH = null;
         $sdt = $request->input('SDT');
         $email = $request->input('email');
         $password = $request->input('password');
-        $existingEmail = DB::table('KhachHang')->where('Email', $email)->exists();
-        $existingEmail = DB::table('KhachHang')->where('Email', $email)->exists();
+        $existingEmail = DB::table('KhachHang')->where('email', $email)->exists();
         if ($existingEmail) {
-            return redirect()->route('login')->with('alert', 'Email đã tồn tại');
+            Session::put('err', 'Email đã tồn tại');
         }
-
-
         DB::table('KhachHang')->insert([
             'tenKH' => $tenKH,
             'diaChiKH' => $diaChiKH,
@@ -38,6 +36,7 @@ class KhachHangController extends Controller
             'email' => $email,
             'matKhau' => $password,
         ]);
+
         return redirect()->route('login')->with('success', 'Đăng ký tài khoản thành công!');
     }
 }

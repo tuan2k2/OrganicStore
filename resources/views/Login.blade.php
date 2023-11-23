@@ -11,12 +11,10 @@
         window.onload = function() {
             var successMessage = "{{ session('success') }}";
             var errorMessage = "{{ session('error') }}";
-
             if (successMessage) {
                 alert(successMessage); // Hiển thị thông báo thành công
                 window.location.href = '/login'; // Chuyển hướng về trang chủ sau khi thông báo được hiển thị (có thể thay đổi URL tương ứng)
             }
-
             if (errorMessage) {
                 alert(errorMessage); // Hiển thị thông báo lỗi (nếu có)
             }
@@ -32,6 +30,10 @@
 </head>
 
 <body>
+    <?php
+
+    use Illuminate\Support\Facades\Session;
+    ?>
 
     <div class="container" id="container">
         <div class="form-container sign-up">
@@ -71,6 +73,13 @@
                     <a href="#" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
                 </div>
                 <span>hoặc sử dụng Email và mật khẩu của bạn</span>
+                <?php
+                $message = Session::get('message');
+                if ($message) {
+                    echo '<span class="text-alert">' . $message . '</span>';
+                    Session::put('message', null);
+                }
+                ?>
                 <input type="email" name="email" placeholder="Email">
                 <input type="password" name="matKhau" placeholder="Mật khẩu">
                 <p>Quên mật khẩu? Nhấn tại <a id="forgot_pass" href="#">đây</a></p>
@@ -100,7 +109,6 @@
             var email = document.getElementById('email').value.trim();
             var password = document.getElementById('password').value.trim();
             var confirmPassword = document.getElementById('confirm_password').value.trim();
-
             // Kiểm tra và hiển thị thông báo lỗi
             if (tenKH === '') {
                 document.getElementById('errorTenKH').innerHTML = 'Bạn phải nhập Họ và tên.';
@@ -127,11 +135,11 @@
             } else {
                 document.getElementById('errorEmail').innerHTML = '';
             }
-            // Kiểm tra email có phải là @gmail.com
             if (!email.endsWith('@gmail.com')) {
                 alert('Email không phải là địa chỉ email @gmail.com.');
                 return false;
             }
+
             if (password === '') {
                 document.getElementById('errorPassword').innerHTML = 'Bạn phải nhập Password.';
                 return false;
@@ -151,6 +159,8 @@
             return true;
         }
     </script>
+
+
 
     <script src="{{asset('frontend/js/login_signup.js')}}"></script>
 </body>
