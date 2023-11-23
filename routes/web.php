@@ -11,6 +11,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\Admin\HomeAdminController;
 use App\Http\Controllers\Client\KhachHangController;
+use App\Http\Controllers\Admin\CategoryController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,16 @@ Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProduct
 Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 Route::group(['middleware' => ['isAdmin'], 'prefix' => 'admin'], function () {
-    Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', [HomeAdminController::class, 'show_dashboard'])->name('admin.dashboard');
+
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/addDanhMuc' , [CategoryController::class, 'addDanhMucSanPham'])->name('addDanhMuc') ;
+Route::get('/editDanhMuc/{maDanhMuc}' , [CategoryController::class, 'editDanhMucSanPham'])->name('editDanhMuc') ;
+Route::get('/deleteDanhMuc/{maDanhMuc}' , [CategoryController::class, 'deleteDanhMucSanPham'])->name('deleteDanhMuc') ;
+Route::post('/saveDanhMuc' , [CategoryController::class, 'saveDanhMucSanPham'])->name('saveDanhMuc') ;
+Route::post('/updateDanhMuc/{maDanhMuc}' , [CategoryController::class, 'updateDanhMucSanPham'])->name('updateDanhMuc') ;
+Route::get('/allDanhMuc' , [CategoryController::class, 'allDanhMucSanPham'])->name('allDanhMuc') ;
+Route::get('/unactive_category/{maDanhMuc}', [CategoryController::class, 'unactive_category'])->name('unactive_category');
+
+Route::get('/active_category/{maDanhMuc}' , [CategoryController::class, 'active_category'])->name('active_category') ;

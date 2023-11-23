@@ -1,5 +1,4 @@
 @extends('frontend.format')
-
 @section('content')
 <!-- Breadcrumb Section Begin -->
 <section class="mb-5">

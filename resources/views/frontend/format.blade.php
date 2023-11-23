@@ -156,9 +156,9 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active">
-                                <a href="./index.html">Trang chủ</a>
+                                <a href="{{ route('home') }}">Trang chủ</a>
                             </li>
-                            <li><a href="./shop-grid.html">Mua hàng</a></li>
+                            <li><a href="{{route('Products')}}">Mua hàng</a></li>
                             <li>
                                 <a href="#">Danh mục</a>
                                 <ul class="header__menu__dropdown">

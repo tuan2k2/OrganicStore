@@ -20,4 +20,13 @@ class HomeAdminController extends Controller
 
         return view('Admin.Home');
     }
+    public function show_dashboard()
+    {
+
+        // $products = new products();
+
+        // $productsList = $products->getAllProducts();
+
+        return view('Admin.dashboard_layout');
+    }
 }

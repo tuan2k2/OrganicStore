@@ -131,25 +131,6 @@
                 return false;
             }
 
-            $.ajax({
-                url: '{{ route('
-                register ') }}',
-                method: 'POST',
-                data: {
-                    email: email
-                },
-                success: function(response) {
-                    if (response.exists) {
-                        document.getElementById('errorEmail').innerHTML = 'Email đã tồn tại trong cơ sở dữ liệu.';
-                        return false;
-                    } else {
-                        document.getElementById('errorEmail').innerHTML = '';
-                        // If email doesn't exist in the database, continue form submission
-                        return true;
-                    }
-                }
-            });
-
             if (password === '') {
                 document.getElementById('errorPassword').innerHTML = 'Bạn phải nhập Password.';
                 return false;
