@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Controllers\client\ProductsController;
 use App\Http\Controllers\client\ProductDetailsController;
@@ -10,20 +8,8 @@ use App\Http\Controllers\client\CartController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\Admin\HomeAdminController;
+use App\Http\Controllers\client\ChatController;
 use App\Http\Controllers\Client\KhachHangController;
-use GuzzleHttp\Middleware;
-use Illuminate\Support\Facades\Auth;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/login', [LoginController::class, 'getLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'checkLogin'])->name('login.authenticate');
@@ -38,3 +24,7 @@ Route::group(['middleware' => ['isAdmin'], 'prefix' => 'admin'], function () {
     Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
 });
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/chat', [ChatController::class, 'getChat'])->name('chat');
+Route::post('/send/chat', [ChatController::class, 'sendChat'])->name('chat.send');
+Route::post("sockets/connect", [ChatController::class,'connect']);
+
