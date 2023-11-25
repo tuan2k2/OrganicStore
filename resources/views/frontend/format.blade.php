@@ -156,7 +156,7 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active">
-                                <a href="{{ route('home') }}">Trang chủ</a>
+                                <a href="{{ route('home')}}">Trang chủ</a>
                             </li>
                             <li><a href="{{route('Products')}}">Mua hàng</a></li>
                             <li>

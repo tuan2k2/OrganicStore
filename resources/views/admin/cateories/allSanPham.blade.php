@@ -3,7 +3,7 @@
 <div class="table-agile-info">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Danh sách danh mục
+      Danh sách sản phẩm
     </div>
     <?php
     use Illuminate\Support\Facades\Session;
@@ -48,34 +48,40 @@
         <thead>
           <tr>
             <th style="width:20px;"></th>
-            <th style="width:70px;">Mã Danh mục</th>
-            <th style="width:150px;">Tên danh mục</th>
+            <th style="width:100px;">IDSP</th>
+            <th style="width:170px;">Tên sản phẩm</th>
+            <th style="width:100px;">Đơn giá</th>
+            <th style="width:100px;">SLHC</th>
+            <th style="width:550px;">Mô tả</th>
             <th style="width:100px;">Hình ảnh</th>
-            <th style="width:50px;">Hiển thị</th>
-            <th style="width:50px;">Ngày thêm</th>
+            <th style="width:250px;">Danh mục</th>
+            <th style="width:150px;">Hiển thị</th>
             <th style="width:20px;"></th>
             <th style="width:20px;"></th>
           </tr>
         </thead>
         <tbody>
-            @foreach($allDanhMucSanPham as $key => $cate_pro)
+            @foreach($allSanPham as $key => $sp_pro)
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
-            <td>{{ $cate_pro->maDanhMuc }}</td>
-            <td>{{ $cate_pro->tenDanhMuc }}</td>
-            <td><img src="./database/mysql_anh/anh_danhmuc/{{$cate_pro->hinhAnh}}" height="100" width="100"></td>
+            <td>{{ $sp_pro->maSanPham }}</td>
+            <td>{{ $sp_pro->tenSanPham }}</td>
+            <td>{{ $sp_pro->donGia}}</td>
+            <td>{{ $sp_pro->soluongHienCon }}</td>
+            <td>{{ $sp_pro->moTa}}</td>
+            <td><img src="./database/mysql_anh/anh_sanpham/{{$sp_pro->hinhAnhsp}}" height="100" width="100"></td>
+            <td>{{ $sp_pro->tenDanhMuc}}</td>
             <td><span class="text-ellipsis">
             <?php
-                if ($cate_pro->hienThi == 0) {
-                    echo '<a href="' . route('unactive_category', ['maDanhMuc' => $cate_pro->maDanhMuc]) . '"><span class="fa-thumb-styling fa fa-thumbs-down"></span></a>';
+                if ($sp_pro->hienThisp == 0) {
+                    echo '<a href="' . route('unactive_product', ['maSanPham' => $sp_pro->maSanPham]) . '"><span class="fa-thumb-styling fa fa-thumbs-down"></span></a>';
                 } else {
-                    echo '<a href="' . route('active_category', ['maDanhMuc' => $cate_pro->maDanhMuc]) . '"><span class="fa-thumb-styling fa fa-thumbs-up"></span></a>';
+                    echo '<a href="' . route('active_product', ['maSanPham' => $sp_pro->maSanPham]) . '"><span class="fa-thumb-styling fa fa-thumbs-up"></span></a>';
                 }
                 ?>
             </span></td>
-            <td><span class="text-ellipsis">12.05.2023</span></td>
-            <td><a href="{{ route('editDanhMuc', ['maDanhMuc' => $cate_pro->maDanhMuc]) }}" class="active" ui-toggle-class="">Sửa</a></td>
-            <td><a onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?')" href="{{ route('deleteDanhMuc', ['maDanhMuc' => $cate_pro->maDanhMuc]) }}" class="active styling-edit" ui-toggle-class=""><i class="fa fa-trash"></i></a></td>
+            <td><a href="{{ route('editSanPham', ['maSanPham' => $sp_pro->maSanPham]) }}" class="active" ui-toggle-class="">Sửa</a></td>
+            <td><a onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')" href="{{ route('deleteSanPham', ['maSanPham' => $sp_pro->maSanPham]) }}" class="active styling-edit" ui-toggle-class=""><i class="fa fa-trash"></i></a></td>
           </tr>
             @endforeach
         </tbody>

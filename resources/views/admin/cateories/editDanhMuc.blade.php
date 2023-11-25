@@ -15,8 +15,8 @@
                 }
                 ?>
                 <div class="panel-body">
-                    @foreach($editDanhMucSanPham as $key => $edit_value)
                         <div class="position-center">
+                    @foreach($editDanhMucSanPham as $key => $edit_value)
                             <form role="form" action="{{ route('updateDanhMuc', ['maDanhMuc' => $edit_value->maDanhMuc]) }}" method="post" enctype="multipart/form-data">
                                 {{csrf_field()}}
                                 <div class="form-group">
@@ -25,14 +25,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Hình ảnh danh mục</label>
-                                    <input type="file" value="{{$edit_value->hinhAnh}}" name="hinhAnhDanhMuc" class="form-control" id="exampleInputEmail1">
+                                    <input type="file" name="hinhAnhDanhMuc" class="form-control" id="exampleInputEmail1">
+                                    <img src="{{ URL::to('./database/mysql_anh/anh_danhmuc/'.$edit_value->hinhAnh) }}" height="100" width="100">
                                 </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" name="updateDanhMuc" class="btn btn-info">Cập nhật danh mục</button>
                         </form>
-                    </div>
                     @endforeach
+                    </div>
+
                 </div>
             </section>
         </div>

@@ -30,12 +30,22 @@ class CategoryController extends Controller
     public function saveDanhMucSanPham(Request $request){
         $data = array();
         $data['tenDanhMuc'] = $request->input('tenDanhMuc');
-        $data['hinhAnh'] = $request->input('hinhAnhDanhMuc');
         $data['hienThi'] = $request->input('category_product_status');
-
+        $get_image = $request->file('hinhAnhDanhMuc');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image.rand(0,10000).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('./database/mysql_anh/anh_danhmuc', $new_image);
+            $data['hinhAnh'] = $new_image;
+            DB::table('DanhMucSanPham')->insert($data);
+            Session::put('message', 'Thêm danh mục sản phẩm thành công');
+            return Redirect::to('allDanhMuc');
+        }
+        $data['hinhAnh'] = '';
         DB::table('DanhMucSanPham')->insert($data);
         Session::put('message', 'Thêm danh mục sản phẩm thành công');
-        return Redirect::to('addDanhMuc');
+        return Redirect::to('allDanhMuc');
     }
     public function unactive_category($maDanhMuc){
         DB::table('DanhMucSanPham')->where('maDanhMuc', $maDanhMuc)->update(['hienThi' => 1]);
@@ -60,65 +70,26 @@ class CategoryController extends Controller
     public function updateDanhMucSanPham(Request $request, $maDanhMuc){
         $data = array();
         $data['tenDanhMuc'] = $request->input('tenDanhMuc');
-        $data['hinhAnh'] = $request->input('hinhAnhDanhMuc');
-
+        $get_image = $request->file('hinhAnhDanhMuc');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image.rand(0,10000).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('./database/mysql_anh/anh_danhmuc', $new_image);
+            $data['hinhAnh'] = $new_image;
+            DB::table('DanhMucSanPham')->where('maDanhMuc', $maDanhMuc)->update($data);
+            Session::put('message', 'Cập nhật danh mục sản phẩm thành công');
+            return Redirect::to('allDanhMuc');
+        }
         DB::table('DanhMucSanPham')->where('maDanhMuc', $maDanhMuc)->update($data);
         Session::put('message', 'Cập nhật danh mục sản phẩm thành công');
         return Redirect::to('allDanhMuc');
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function show_category_home($maDanhMuc){
+        $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
+        $category_by_id = DB::table('SanPham')->join('DanhMucSanPham', 'SanPham.maDanhMuc', '=', 'DanhMucSanPham.maDanhMuc')->where('SanPham.maDanhMuc', $maDanhMuc)->get();
+        $category_name = DB::table('DanhMucSanPham')->where('DanhMucSanPham.maDanhMuc', $maDanhMuc)->limit(1)->get();
+        return view('client.show_category')->with('category', $cate_product)->with('category_by_id', $category_by_id)->with('category_name', $category_name);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

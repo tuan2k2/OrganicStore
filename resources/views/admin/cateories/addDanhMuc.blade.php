@@ -15,9 +15,8 @@
                             }
                         ?>
                         <div class="panel-body">
-
                             <div class="position-center">
-                                <form role="form" action="{{Route('saveDanhMuc')}}" method="post">
+                                <form role="form" action="{{Route('saveDanhMuc')}}" method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Tên danh mục</label>

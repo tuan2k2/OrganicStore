@@ -16,9 +16,10 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        // Lấy dữ liệu từ cơ sở dữ liệ
-        $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
+        $all_category = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
+        //$allSanPham = DB::table('SanPham')->join('DanhMucSanPham', 'DanhMucSanPham.maDanhMuc', '=', 'SanPham.maDanhMuc')->orderBy('SanPham.maSanPham', 'desc')->get();
+        $all_product_home = DB::table('SanPham')->where('hienThisp', '1')->orderby('maSanPham', 'desc')->limit(8)->get();
         // Trả về view 'home' và truyền dữ liệu vào view
-        return view('client.Products')->with('category', $cate_product);
+        return view('client.Home')->with('all_category', $all_category)->with('all_product_home', $all_product_home);
     }
 }

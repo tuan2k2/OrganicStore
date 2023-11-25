@@ -26,13 +26,13 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
-                        <img class="product__details__pic__item--large" src="img/product/details/product-details-1.jpg" alt="" />
+                    <img class="product__details__pic__item--large" src="{{URL::to('public/frontend/img/product/details/product-details-2.jpg') }}" alt="" height="540px" width="550px"/>
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
-                        <img data-imgbigurl="img/product/details/product-details-2.jpg" src="img/product/details/thumb-1.jpg" alt="" />
-                        <img data-imgbigurl="img/product/details/product-details-3.jpg" src="img/product/details/thumb-2.jpg" alt="" />
-                        <img data-imgbigurl="img/product/details/product-details-5.jpg" src="img/product/details/thumb-3.jpg" alt="" />
-                        <img data-imgbigurl="img/product/details/product-details-4.jpg" src="img/product/details/thumb-4.jpg" alt="" />
+                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-2.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-1.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-3.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-2.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-5.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-3.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-4.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-4.jpg') }}" alt="" height="120px" width="120px"/>
                     </div>
                 </div>
             </div>
@@ -165,60 +165,6 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="product__item">
                     <div class="product__item__pic set-bg" data-setbg=" {{ asset('frontend/img/product/product-1.jpg ' )}}">
-                        <ul class="product__item__pic__hover">
-                            <li>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg=" {{ asset('frontend/img/product/product-2.jpg ' )}}">
-                        <ul class="product__item__pic__hover">
-                            <li>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg=" {{ asset('frontend/img/product/product-3.jpg ' )}}">
-                        <ul class="product__item__pic__hover">
-                            <li>
-                                <a href="#"><i class="fa fa-heart"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="product__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg=" {{ asset('frontend/img/product/product-7.jpg ' )}}">
                         <ul class="product__item__pic__hover">
                             <li>
                                 <a href="#"><i class="fa fa-heart"></i></a>

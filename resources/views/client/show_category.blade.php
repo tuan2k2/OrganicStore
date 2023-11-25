@@ -55,7 +55,9 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found">
-                                <h6>Sản phẩm mới nhất</h6>
+                                @foreach($category_name as $key=>$category_sp)
+                                <h6>{{$category_sp->tenDanhMuc}}</h6>
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-3">
@@ -65,11 +67,12 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
-                    @foreach($all_product as $key => $product)
+                    @foreach($category_by_id as $key => $product)
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product->hinhAnhsp)}}">
+                            <div class="product__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product->hinhAnhsp)}}" onclick="redirectToDetail('{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}')" onmouseover="changeCursor()">
                                 <ul class="product__item__pic__hover">
                                     <li>
                                         <a href="#"><i class="fa fa-heart"></i></a>
@@ -82,17 +85,28 @@
                                     </li>
                                 </ul>
                             </div>
+                            <script>
+                                function redirectToDetail(url) {
+                                    window.location.href = url;
+                                }
+                                function changeCursor() {
+                                    document.body.style.cursor = 'pointer';
+                                }
+                            </script>
                             <div class="product__item__text">
-                                <h6><a href="#">{{$product->tenSanPham}}</a></h6>
-                                <h5>{{number_format($product->donGia).' VNĐ'}}</h5>
+                                <h6><a href="{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}">{{$product->tenSanPham}}</a></h6>
+                                <h5><a href="{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}">{{number_format($product->donGia).' VNĐ'}}</a></h5>
                             </div>
                         </div>
                     </div>
+
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
+
 </section>
 <!-- Product Section End -->
 @endsection
+
