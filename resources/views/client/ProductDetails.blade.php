@@ -1,5 +1,6 @@
 @extends('frontend.format')
 @section('content')
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg=" {{ asset('frontend/img/breadcrumb.jpg ' )}}">
     <div class="container">
@@ -20,25 +21,27 @@
 <!-- Breadcrumb Section End -->
 
 <!-- Product Details Section Begin -->
+@foreach($details_product as $key => $value)
 <section class="product-details spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
-                    <img class="product__details__pic__item--large" src="{{URL::to('public/frontend/img/product/details/product-details-2.jpg') }}" alt="" height="540px" width="550px"/>
+                    <img class="product__details__pic__item--large" src="{{ asset('database/mysql_anh/anh_sanpham/' . $value->hinhAnhsp) }}" alt="" height="540px" width="550px"/>
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
-                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-2.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-1.jpg') }}" alt="" height="120px" width="120px"/>
-                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-3.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-2.jpg') }}" alt="" height="120px" width="120px"/>
-                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-5.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-3.jpg') }}" alt="" height="120px" width="120px"/>
-                        <img data-imgbigurl="{{ URL::to('public/frontend/img/product/details/product-details-4.jpg') }}" src="{{ URL::to('public/frontend/img/product/details/thumb-4.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-1.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-1.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-2.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-2.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-3.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-3.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-4.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-4.jpg') }}" alt="" height="120px" width="120px"/>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__text">
-                    <h3>Tên sản phẩm</h3>
+                    <h3>{{$value -> tenSanPham}}</h3>
+                    <p><span>ID sản phẩm: </span> {{$value->maSanPham}}...</p>
                     <div class="product__details__rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -47,22 +50,22 @@
                         <i class="fa fa-star-half-o"></i>
                         <span>(18 đánh giá)</span>
                     </div>
-                    <div class="product__details__price">$50.00</div>
-                    <p>
-                        Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                        Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                        dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam
-                        vehicula elementum sed sit amet dui. Proin eget tortor risus.
-                    </p>
-                    <div class="product__details__quantity">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1" />
+                    <p><span>Mô tả: </span> {{$value->tenDanhMuc}}...</p>
+                    <p><span>Tình trạng: </span> Còn hàng</p>
+                    <form action="{{URL::to('/save-cart')}}" method="post">
+                        {{ csrf_field() }}
+                        <div class="product__details__price">{{number_format($value->donGia).' VNĐ'}}</div>
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="number" name="qty" min="0" value="1" />
+                                    <input type="hidden" name="productid_hidden" value="{{$value->maSanPham}}" />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <a href="#" class="primary-btn">Thêm vào giả hàng</a>
+                        <button type="submit" class="primary-btn">Thêm vào giỏ hàng</button>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                    </form>
                     <ul>
                         <li><b>Cân nặng</b> <span>0.5 kg</span></li>
                         <li>
@@ -91,35 +94,7 @@
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="product__details__tab__desc">
                                 <h6>Thông tin sản phẩm</h6>
-                                <p>
-                                    Vestibulum ac diam sit amet quam vehicula elementum sed
-                                    sit amet dui. Pellentesque in ipsum id orci porta dapibus.
-                                    Proin eget tortor risus. Vivamus suscipit tortor eget
-                                    felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                                    vehicula elementum sed sit amet dui. Donec rutrum congue
-                                    leo eget malesuada. Vivamus suscipit tortor eget felis
-                                    porttitor volutpat. Curabitur arcu erat, accumsan id
-                                    imperdiet et, porttitor at sem. Praesent sapien massa,
-                                    convallis a pellentesque nec, egestas non nisi. Vestibulum
-                                    ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                    Vestibulum ante ipsum primis in faucibus orci luctus et
-                                    ultrices posuere cubilia Curae; Donec velit neque, auctor
-                                    sit amet aliquam vel, ullamcorper sit amet ligula. Proin
-                                    eget tortor risus.
-                                </p>
-                                <p>
-                                    Praesent sapien massa, convallis a pellentesque nec,
-                                    egestas non nisi. Lorem ipsum dolor sit amet, consectetur
-                                    adipiscing elit. Mauris blandit aliquet elit, eget
-                                    tincidunt nibh pulvinar a. Cras ultricies ligula sed magna
-                                    dictum porta. Cras ultricies ligula sed magna dictum
-                                    porta. Sed porttitor lectus nibh. Mauris blandit aliquet
-                                    elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam
-                                    sit amet quam vehicula elementum sed sit amet dui. Sed
-                                    porttitor lectus nibh. Vestibulum ac diam sit amet quam
-                                    vehicula elementum sed sit amet dui. Proin eget tortor
-                                    risus.
-                                </p>
+                                <p>{{$value->moTa}}</p>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
@@ -149,6 +124,7 @@
         </div>
     </div>
 </section>
+@endforeach
 <!-- Product Details Section End -->
 
 <!-- Related Product Section Begin -->
@@ -157,14 +133,15 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title related__product__title">
-                    <h2>Sản phẩm cùng loại</h2>
+                    <h2>Sản phẩm liên quan</h2>
                 </div>
             </div>
         </div>
         <div class="row">
+            @foreach($related_product as $key => $all)
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <div class="product__item">
-                    <div class="product__item__pic set-bg" data-setbg=" {{ asset('frontend/img/product/product-1.jpg ' )}}">
+                    <div class="product__item__pic set-bg" data-setbg="{{ asset('database/mysql_anh/anh_sanpham/'.$all->hinhAnhsp)}}">
                         <ul class="product__item__pic__hover">
                             <li>
                                 <a href="#"><i class="fa fa-heart"></i></a>
@@ -175,11 +152,12 @@
                         </ul>
                     </div>
                     <div class="product__item__text">
-                        <h6><a href="#">Crab Pool Security</a></h6>
-                        <h5>$30.00</h5>
+                        <h6><a href="#">{{$all -> tenSanPham}}</a></h6>
+                        <h5>{{number_format($all->donGia).' VNĐ'}}</h5>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </section>
