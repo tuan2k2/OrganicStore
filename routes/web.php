@@ -89,3 +89,6 @@ Route::post('/updateSanPham/{maSanPham}' , [ProductController::class, 'updateSan
 Route::get('/allSanPham' , [ProductController::class, 'allSanPham'])->name('allSanPham') ;
 Route::get('/unactive_product/{maSanPham}', [ProductController::class, 'unactive_product'])->name('unactive_product');
 Route::get('/active_product/{maSanPham}' , [ProductController::class, 'active_product'])->name('active_product') ;
+
+//Cart
+Route::post('/save-cart' , [CartController::class, 'save_cart'])->name('saveCart') ;

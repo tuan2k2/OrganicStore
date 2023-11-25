@@ -94,6 +94,10 @@ class ProductController extends Controller
     public function details_product($maSanPham){
         $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
         $details_product = DB::table('SanPham')->join('DanhMucSanPham', 'DanhMucSanPham.maDanhMuc', '=', 'SanPham.maDanhMuc')->where('SanPham.maSanPham', $maSanPham)->get();
-        return view('client.ProductDetails');
+        foreach($details_product as $key => $value){
+            $maDanhMuc = $value->maDanhMuc;
+        }
+        $related_product = DB::table('SanPham')->join('DanhMucSanPham', 'DanhMucSanPham.maDanhMuc', '=', 'SanPham.maDanhMuc')->where('DanhMucSanPham.maDanhMuc', $maDanhMuc)->whereNotIn('SanPham.maSanPham', [$maSanPham])->limit(8)->get();
+        return view('client.ProductDetails')->with('cate_product', $cate_product)->with('details_product', $details_product)->with('related_product', $related_product);
     }
 }
