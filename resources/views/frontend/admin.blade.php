@@ -16,7 +16,7 @@
     <link href=" {{ asset('frontend_admin/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i ' )}}" rel="stylesheet ">
 
     <!-- Custom styles for this template-->
-    <link href=" {{ asset('frontend_admin/css/sb-admin-2.min.css ' )}}" rel="stylesheet ">
+    <link href=" {{ asset('frontend_admin/css/sb-admin-2.css ' )}}" rel="stylesheet ">
 
 </head>
 
@@ -48,11 +48,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     @php
-                                    $admin = session('admin_name');
+                                    $isAdmin = session('admin_name');
                                     @endphp
-                                    {{$admin->tenAdmin}}
-
-
+                                    {{$isAdmin}}
                                 </span>
                                 <img class="img-profile rounded-circle" src=" {{ asset('frontend_admin/img/undraw_profile.svg')}}">
                             </a>

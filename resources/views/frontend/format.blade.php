@@ -156,9 +156,9 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active">
-                                <a href="{{ route('home')}}">Trang chủ</a>
+                                <a id="a_tc" href="{{ route('home')}}">Trang chủ</a>
                             </li>
-                            <li><a href="{{route('Products')}}">Mua hàng</a></li>
+                            <li><a id="a_mh" href="{{route('Products')}}">Mua hàng</a></li>
                             <li>
                                 <a href="#">Danh mục</a>
                                 <ul class="header__menu__dropdown">
@@ -203,8 +203,9 @@
                 <div class="col-lg-12">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Bạn đang cần gì?" />
+                            <form method="POST" action="{{route('search')}}">
+                                @csrf
+                                <input type="text" name="keyword_submit" placeholder="Bạn đang cần gì?" />
                                 <button type="submit" class="site-btn">
                                     Tìm kiếm
                                 </button>
@@ -318,6 +319,7 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 
 </html>

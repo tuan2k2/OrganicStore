@@ -6,12 +6,14 @@
       Danh sách danh mục
     </div>
     <?php
+
     use Illuminate\Support\Facades\Session;
-        $message_1 = Session::get('message');
-        if ($message_1) {
-            echo '<span class="text-alert">' . $message_1 . '</span>';
-            Session::put('message', null);
-        }
+
+    $message_1 = Session::get('message');
+    if ($message_1) {
+      echo '<span class="text-alert">' . $message_1 . '</span>';
+      Session::put('message', null);
+    }
     ?>
     <div class="row w3-res-tb">
       <div class="col-sm-5 m-b-xs">
@@ -35,15 +37,15 @@
       </div>
     </div>
     <div class="table-responsive">
-        @if(Session::has('success_message'))
-        <div class="alert alert-success">
-            {{ Session::get('success_message') }}
-        </div>
-        @else
-        <div class="alert alert-success">
-            {{ Session::get('unsuccess_message') }}
-        </div>
-        @endif
+      @if(Session::has('success_message'))
+      <div class="alert alert-success">
+        {{ Session::get('success_message') }}
+      </div>
+      @else
+      <div class="alert alert-success">
+        {{ Session::get('unsuccess_message') }}
+      </div>
+      @endif
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>
@@ -58,26 +60,26 @@
           </tr>
         </thead>
         <tbody>
-            @foreach($allDanhMucSanPham as $key => $cate_pro)
+          @foreach($allDanhMucSanPham as $key => $cate_pro)
           <tr>
             <td><label class="i-checks m-b-none"><input type="checkbox" name="post[]"><i></i></label></td>
             <td>{{ $cate_pro->maDanhMuc }}</td>
             <td>{{ $cate_pro->tenDanhMuc }}</td>
-            <td><img src="./database/mysql_anh/anh_danhmuc/{{$cate_pro->hinhAnh}}" height="100" width="100"></td>
+            <td><img src="{{asset('database/mysql_anh/anh_danhmuc/' .$cate_pro->hinhAnh)}}" height="100" width="100"></td>
             <td><span class="text-ellipsis">
-            <?php
+                <?php
                 if ($cate_pro->hienThi == 0) {
-                    echo '<a href="' . route('unactive_category', ['maDanhMuc' => $cate_pro->maDanhMuc]) . '"><span class="fa-thumb-styling fa fa-thumbs-down"></span></a>';
+                  echo '<a href="' . route('unactive_category', ['maDanhMuc' => $cate_pro->maDanhMuc]) . '"><span class="fa-thumb-styling fa fa-thumbs-down"></span></a>';
                 } else {
-                    echo '<a href="' . route('active_category', ['maDanhMuc' => $cate_pro->maDanhMuc]) . '"><span class="fa-thumb-styling fa fa-thumbs-up"></span></a>';
+                  echo '<a href="' . route('active_category', ['maDanhMuc' => $cate_pro->maDanhMuc]) . '"><span class="fa-thumb-styling fa fa-thumbs-up"></span></a>';
                 }
                 ?>
-            </span></td>
+              </span></td>
             <td><span class="text-ellipsis">12.05.2023</span></td>
             <td><a href="{{ route('editDanhMuc', ['maDanhMuc' => $cate_pro->maDanhMuc]) }}" class="active" ui-toggle-class="">Sửa</a></td>
             <td><a onclick="return confirm('Bạn có chắc chắn muốn xóa danh mục này?')" href="{{ route('deleteDanhMuc', ['maDanhMuc' => $cate_pro->maDanhMuc]) }}" class="active styling-edit" ui-toggle-class=""><i class="fa fa-trash"></i></a></td>
           </tr>
-            @endforeach
+          @endforeach
         </tbody>
       </table>
     </div>
