@@ -11279,3 +11279,211 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+.panel-heading {
+    position: relative;
+    height: 57px;
+    line-height: 57px;
+    letter-spacing: 0.2px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0 16px;
+    background:#ddede0;
+   border-top-right-radius: 2px;
+   border-top-left-radius: 2px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.panel {
+    border: none ! important;
+}
+.agileinfo-grap {
+    padding: 2em;
+    background:rgb(238, 249, 240);
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+header.agileits-box-header.clearfix h3 {
+    font-size: 24px;
+    font-weight: 400;
+    text-transform: uppercase;
+    color:#000;
+    text-align: center;
+    margin-bottom: 1em;
+}
+.calendar-widget {
+    background-color: #eef9f0;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+	padding: 2em;
+}
+span.panel-title{
+	color:#000000;
+	 font-size: 18px;
+}
+
+.agile-calendar-grid {
+    border: 1px solid #c0dbc5;
+}
+.alert-info .alert-icon {
+    background-color: #99cce3;
+}
+.alert-danger .alert-icon {
+    background-color: #fcb1ae;
+}
+.alert-success .alert-icon {
+    background-color: #98d7ad;
+}
+.alert-warning .alert-icon {
+    background-color: #ffe699;
+}
+.alert-icon i {
+    width: 40px;
+    height: 40px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: #fff;
+}
+.alert-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+}
+.notification-sender {
+    color: #414147;
+}
+.alert-success .notification-info a {
+    color: #42b663;
+}
+.notification-info p {
+    margin: 0px;
+    color: #999;
+    font-size: 12px;
+}
+.notification-meta {
+    margin-bottom: 3px;
+    padding-left: 0;
+    list-style: none;
+}
+.notification-info {
+    margin-left: 56px;
+    margin-top: -40px;
+}
+.notifications{
+	background-color: #eef9f0;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    padding: 2em;
+}
+.alert-danger .notification-info a {
+    color: #fb6f6b;
+}
+.alert-info .notification-info a {
+    color: #45a2c9;
+}
+.alert {
+    padding: 16.8px !important;
+}
+/*-- graphs --*/
+.area-grids{
+    border: 10px solid #d8d8d8;
+    background: #FFF;
+    padding: 1em;
+}
+.charts-right {
+    padding-left: 0;
+}
+.chart-left {
+    padding-right: 0;
+}
+.agile-bottom-right {
+    padding-left: 0;
+}
+.agile-bottom-left {
+    padding-right: 0;
+}
+#graph {
+  width: 100%;
+  margin: 20px auto 0 auto;
+}
+pre {
+  height: 250px;
+  overflow: auto;
+}
+
+div#graph1,div#graph4,div#graph5,div#graph6,div#graph7,div#graph8,div#graph9 {
+    width: 100% !important;
+    z-index: 1;
+}
+.agile-Updating-grids, .agile-bottom-grid, .agile-last-grid {
+    background: #eef9f0;
+    padding: 2em;
+	border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.agile-bottom-grids {
+    margin: 2em 0;
+}
+.agil-info-calendar {
+    margin: 1.5em 0;
+}
+.area-grids-heading h3 {
+    font-size: 20px;
+    color: #000;
+    text-align: center;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+}
+.panel-body {
+    padding: 6px ! important;
+}
+.position-center {
+    width:62%;
+    margin: 0 auto;
+}
+.table-agile-info{
+	background: #eef9f0;
+    padding: 2em;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.table-agile-info {
+    padding: 1em;
+}
+.panel-heading {
+    position: relative;
+    height: 57px;
+    line-height: 57px;
+    letter-spacing: 0.2px;
+    color: #000;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0 16px;
+    background:#ddede0;
+   border-top-right-radius: 2px;
+   border-top-left-radius: 2px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.input-group {
+	margin-bottom: 20px;
+}
+span.fa-thumb-styling.fa.fa-thumbs-down {
+    font-size: 24px;
+    color: red;
+}
+span.fa-thumb-styling.fa.fa-thumbs-up {
+    font-size: 24px;
+    color: green;
+}
+a.active.styling-edit {
+    font-size: 20px;
+}
