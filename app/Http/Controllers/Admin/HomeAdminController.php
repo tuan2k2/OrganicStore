@@ -12,10 +12,6 @@ class HomeAdminController extends Controller
     public function __construct()
     {
     }
-    public function index()
-    {
-        return view('admin.Home');
-    }
     public function show_dashboard()
     {
 

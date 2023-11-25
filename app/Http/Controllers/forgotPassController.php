@@ -65,7 +65,6 @@ class forgotPassController extends Controller
             ]);
             return redirect()->route('login')->with('Yes', 'Thay đổi mật khẩu thành công');
         } else {
-            // Không tìm thấy đối tượng KhachHang với kh_token tương ứng
             return redirect()->back()->with('No', 'Không thể thực hiện thay đổi mật khẩu');
         }
     }

@@ -13,11 +13,8 @@ use App\Http\Controllers\Admin\HomeAdminController;
 use App\Http\Controllers\Client\CategoryClientController;
 use App\Http\Controllers\Client\KhachHangController;
 use App\Http\Controllers\forgotPassController;
-use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
-use GuzzleHttp\Middleware;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,36 +53,37 @@ Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 //admin
 Route::prefix('admin')->middleware(['checkAdminLogin'])->group(function () {
-    Route::get('/', [HomeAdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', [HomeAdminController::class, 'show_dashboard'])->name('admin.dashboard');
+    Route::get('/addDanhMuc', [CategoryController::class, 'addDanhMucSanPham'])->name('addDanhMuc');
+    Route::get('/editDanhMuc/{maDanhMuc}', [CategoryController::class, 'editDanhMucSanPham'])->name('editDanhMuc');
+    Route::get('/deleteDanhMuc/{maDanhMuc}', [CategoryController::class, 'deleteDanhMucSanPham'])->name('deleteDanhMuc');
+    Route::post('/saveDanhMuc', [CategoryController::class, 'saveDanhMucSanPham'])->name('saveDanhMuc');
+    Route::post('/updateDanhMuc/{maDanhMuc}', [CategoryController::class, 'updateDanhMucSanPham'])->name('updateDanhMuc');
+    Route::get('/allDanhMuc', [CategoryController::class, 'allDanhMucSanPham'])->name('allDanhMuc');
+    Route::get('/unactive_category/{maDanhMuc}', [CategoryController::class, 'unactive_category'])->name('unactive_category');
+    Route::get('/active_category/{maDanhMuc}', [CategoryController::class, 'active_category'])->name('active_category');
+
+
+    //SanPham
+    Route::get('/addSanPham', [ProductController::class, 'addSanPham'])->name('addSanPham');
+    Route::get('/editSanPham/{maSanPham}', [ProductController::class, 'editSanPham'])->name('editSanPham');
+    Route::get('/deleteSanPham/{maSanPham}', [ProductController::class, 'deleteSanPham'])->name('deleteSanPham');
+    Route::post('/saveSanPham', [ProductController::class, 'saveSanPham'])->name('saveSanPham');
+    Route::post('/updateSanPham/{maSanPham}', [ProductController::class, 'updateSanPham'])->name('updateSanPham');
+    Route::get('/allSanPham', [ProductController::class, 'allSanPham'])->name('allSanPham');
+    Route::get('/unactive_product/{maSanPham}', [ProductController::class, 'unactive_product'])->name('unactive_product');
+    Route::get('/active_product/{maSanPham}', [ProductController::class, 'active_product'])->name('active_product');
 });
 Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProductDetails'])->name('ProductDetails');
 Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
-Route::group(['middleware' => ['isAdmin'], 'prefix' => 'admin'], function () {
-    Route::get('/', [HomeAdminController::class, 'show_dashboard'])->name('admin.dashboard');
-});
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/search', [HomeController::class, 'searchController'])->name('search');
+
 //DanhMucSanPham_TrangChu
 Route::get('/danh-muc-san-pham/{maDanhMuc}', [CategoryController::class, 'show_category_home'])->name('showproduct');
 Route::get('/chi-tiet-san-pham/{maSanPham}', [ProductController::class, 'details_product'])->name('chitietproduct');
 //DanhMucSanPham_KhachHang
 Route::get('/products', [CategoryClientController::class, 'getAllProducts'])->name('Products');
-//DanhMucSanPham_Admin
-Route::get('/addDanhMuc' , [CategoryController::class, 'addDanhMucSanPham'])->name('addDanhMuc') ;
-Route::get('/editDanhMuc/{maDanhMuc}' , [CategoryController::class, 'editDanhMucSanPham'])->name('editDanhMuc') ;
-Route::get('/deleteDanhMuc/{maDanhMuc}' , [CategoryController::class, 'deleteDanhMucSanPham'])->name('deleteDanhMuc') ;
-Route::post('/saveDanhMuc' , [CategoryController::class, 'saveDanhMucSanPham'])->name('saveDanhMuc') ;
-Route::post('/updateDanhMuc/{maDanhMuc}' , [CategoryController::class, 'updateDanhMucSanPham'])->name('updateDanhMuc') ;
-Route::get('/allDanhMuc' , [CategoryController::class, 'allDanhMucSanPham'])->name('allDanhMuc') ;
-Route::get('/unactive_category/{maDanhMuc}', [CategoryController::class, 'unactive_category'])->name('unactive_category');
-Route::get('/active_category/{maDanhMuc}' , [CategoryController::class, 'active_category'])->name('active_category') ;
 
-//SanPham
-Route::get('/addSanPham' , [ProductController::class, 'addSanPham'])->name('addSanPham') ;
-Route::get('/editSanPham/{maSanPham}' , [ProductController::class, 'editSanPham'])->name('editSanPham') ;
-Route::get('/deleteSanPham/{maSanPham}' , [ProductController::class, 'deleteSanPham'])->name('deleteSanPham') ;
-Route::post('/saveSanPham' , [ProductController::class, 'saveSanPham'])->name('saveSanPham') ;
-Route::post('/updateSanPham/{maSanPham}' , [ProductController::class, 'updateSanPham'])->name('updateSanPham') ;
-Route::get('/allSanPham' , [ProductController::class, 'allSanPham'])->name('allSanPham') ;
-Route::get('/unactive_product/{maSanPham}', [ProductController::class, 'unactive_product'])->name('unactive_product');
-Route::get('/active_product/{maSanPham}' , [ProductController::class, 'active_product'])->name('active_product') ;
+//DanhMucSanPham_Admin

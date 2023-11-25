@@ -29,7 +29,21 @@
             </form>
         </div>
     </div>
+    <script>
+        window.onload = function() {
+            var successMessage = "{{ session('Yes') }}";
+            var errorMessage = "{{ session('No') }}";
 
+            if (successMessage) {
+                alert(successMessage);
+                window.location.href = '/login'; // Redirect đến trang login khi thay đổi thành công
+            }
+
+            if (errorMessage) {
+                alert(errorMessage);
+            }
+        };
+    </script>
     <script src="{{asset('frontend/js/login_signup.js')}}"></script>
 </body>
 

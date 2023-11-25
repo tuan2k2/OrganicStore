@@ -35,9 +35,7 @@ class LoginController extends Controller
             session(['khachHang_data' => $isCustomer]);
             return redirect()->route('home');
         } else {
-            // Đăng nhập không thành công
-            Session::put('message', 'Mật khẩu hoặc tài khoản không chính xác. Vui lòng nhập lại');
-            return redirect()->route('login')->with('message', 'Đăng nhập thành công');
+            return redirect()->route('login')->with('message', 'Tài khoản hoặc mật khẩu không chính xác');
         }
     }
     public function login_facebook()
