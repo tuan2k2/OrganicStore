@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="row featured__filter">
-         @foreach($details_product as $key => $all_product_home)
+            @foreach($details_product as $key => $all_product_home)
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                 <div class="featured__item">
                     <div class="featured__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product_home->hinhAnhsp)}}">
@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+            @endforeach
         </div>
     </div>
 </section>
