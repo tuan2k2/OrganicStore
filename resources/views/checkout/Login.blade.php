@@ -11,19 +11,19 @@
         window.onload = function() {
             var successMessage = "{{ session('success') }}";
             var errorMessage = "{{ session('error') }}";
-            if (successMessage) {
-                alert(successMessage); // Hiển thị thông báo thành công
-                window.location.href = '/login'; // Chuyển hướng về trang chủ sau khi thông báo được hiển thị (có thể thay đổi URL tương ứng)
-            }
-            if (errorMessage) {
-                alert(errorMessage); // Hiển thị thông báo lỗi (nếu có)
-            }
-        };
 
-        window.onload = function() {
+            if (successMessage) {
+                alert(successMessage);
+                window.location.href = '/login';
+            }
+
+            if (errorMessage) {
+                alert(errorMessage);
+            }
+
             var alertMessage = '{{ session("alert") }}';
             if (alertMessage) {
-                toastr.error(alertMessage); // Hiển thị thông báo lỗi
+                toastr.error(alertMessage);
             }
         };
     </script>
@@ -40,10 +40,10 @@
             <form id="signUp" method="POST" action="{{ route('register') }}" onsubmit="return validateForm()">
                 <h1>Đăng ký tài khoản</h1>
                 <div class="social-icons">
-                    <a href="#" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
+                    <a href="{{ route('login-google') }}" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
                     <a href="#" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
                 </div>
-                <span>hoặc sử dụng Email để đăng ký tài khoản</span>
+                <span>hoặc sử dụng Tài khoản để đăng ký tài khoản</span>
                 @csrf
                 <input type="text" name="tenKH" placeholder="Họ và tên" value="{{ old('tenKH') }}" id="tenKH">
                 <div id="errorTenKH" class="error-message"></div>
@@ -51,8 +51,8 @@
                 <input type="text" name="SDT" placeholder="Phone Number" value="{{ old('SDT') }}" id="SDT">
                 <div id="errorSDT" class="error-message"></div>
 
-                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" id="email">
-                <div id="errorEmail" class="error-message"></div>
+                <input name="taikhoan" placeholder="taikhoan" value="{{ old('taikhoan') }}" id="taikhoan">
+                <div id="errorTaiKhoan" class="error-message"></div>
 
                 <input type="password" name="password" placeholder="Password" id="password">
                 <div id="errorPassword" class="error-message"></div>
@@ -69,10 +69,10 @@
                 @csrf
                 <h1>Đăng nhập</h1>
                 <div class=" social-icons">
-                    <a href="#" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
-                    <a href="#" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
+                    <a href="{{ route('login-google') }}" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
+                    <a href="{{ route('login-facebook') }}" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
                 </div>
-                <span>hoặc sử dụng Email và mật khẩu của bạn</span>
+                <span>hoặc sử dụng TaiKhoan và mật khẩu của bạn</span>
                 <?php
                 $message = Session::get('message');
                 if ($message) {
@@ -80,9 +80,9 @@
                     Session::put('message', null);
                 }
                 ?>
-                <input type="email" name="email" placeholder="Email">
+                <input name="taikhoan" placeholder="Nhập tài khoản...">
                 <input type="password" name="matKhau" placeholder="Mật khẩu">
-                <p>Quên mật khẩu? Nhấn tại <a id="forgot_pass" href="#">đây</a></p>
+                <p>Quên mật khẩu? Nhấn tại <a id="forgot_pass" href="{{route('forgotPass')}}">đây</a></p>
                 <button>Đăng nhập</button>
             </form>
         </div>
@@ -106,7 +106,7 @@
         function validateForm() {
             var tenKH = document.getElementById('tenKH').value.trim();
             var SDT = document.getElementById('SDT').value.trim();
-            var email = document.getElementById('email').value.trim();
+            var taikhoan = document.getElementById('taikhoan').value.trim();
             var password = document.getElementById('password').value.trim();
             var confirmPassword = document.getElementById('confirm_password').value.trim();
             // Kiểm tra và hiển thị thông báo lỗi
@@ -129,15 +129,11 @@
                 document.getElementById('errorSDT').innerHTML = '';
             }
 
-            if (email === '') {
-                document.getElementById('errorEmail').innerHTML = 'Bạn phải nhập Email.';
+            if (taikhoan === '') {
+                document.getElementById('errorTaiKhoan').innerHTML = 'Bạn phải nhập tài khoản.';
                 return false;
             } else {
-                document.getElementById('errorEmail').innerHTML = '';
-            }
-            if (!email.endsWith('@gmail.com')) {
-                alert('Email không phải là địa chỉ email @gmail.com.');
-                return false;
+                document.getElementById('errorTaiKhoan').innerHTML = '';
             }
 
             if (password === '') {

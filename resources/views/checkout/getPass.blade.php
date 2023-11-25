@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('frontend/css/login_signup.css')}}">
+    <title>Modern Login Page | AsmrProg</title>
+</head>
+
+<body>
+    <?php
+
+    use Illuminate\Support\Facades\Session;
+    ?>
+
+    <div class="container" id="container">
+        <div class="form-container sign-in" style="width : 100%">
+            <form method="POST">
+                <span>Đặt lại mật khẩu</span>
+                @csrf
+                <input type="password" name="password" placeholder="Password" id="password">
+                <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password">
+                @error('confirm_password')
+                <small>{{$message}}</small>
+                @enderror
+                <button type="submit">Cập nhật</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{{asset('frontend/js/login_signup.js')}}"></script>
+</body>
+
+
+</html>

@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class KhachHang extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'idKH';
     protected $table = 'KhachHang'; // Tên bảng
-
-    protected $fillable = ['tenKH', 'diaChiKH', 'SDT', 'Email', 'matKhau'];
+    public $timestamps = false;
+    protected $fillable = ['tenKH', 'diaChiKH', 'SDT', 'Email', 'taikhoan', 'matKhau', 'kh_token'];
 }
