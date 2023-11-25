@@ -1,5 +1,15 @@
 @extends('frontend.format')
 @section('content')
+<style>
+    #a_mh {
+        color: #7fad39;
+    }
+
+    #a_tc {
+        color: #252525;
+    }
+</style>
+
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-section set-bg" data-setbg=" {{ asset('frontend/img/breadcrumb.jpg ' )}}">
     <div class="container">
@@ -45,11 +55,11 @@
                         <div class="col-lg-4 col-md-5">
                             <div class="filter__sort">
                                 <span>Sắp xếp</span>
-                                <select>
+                                <select class="select-filter">
                                     <option value="0">Default</option>
-                                    <option value="0">A-Z</option>
-                                    <option value="0">Giá từ cao - thấp</option>
-                                    <option value="0">Giá từ thấp - cao</option>
+                                    <option value="?kystu=asc">A-Z</option>
+                                    <option value="?gia=asc">Giá từ cao - thấp</option>
+                                    <option value="?gia=dec">Giá từ thấp - cao</option>
                                 </select>
                             </div>
                         </div>
@@ -94,5 +104,6 @@
         </div>
     </div>
 </section>
+
 <!-- Product Section End -->
 @endsection

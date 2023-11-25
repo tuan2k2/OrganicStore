@@ -1,56 +1,17 @@
 @extends('frontend.format')
 @section('content')
-<!-- Breadcrumb Section Begin -->
-<section class="mb-5">
-    <div class="container">
-        <div class="hero__item set-bg" data-setbg=" {{ asset('frontend/img/hero/banner.jpg ' )}}">
-            <div class="hero__text">
-                <span>Trái cây tươi</span>
-                <h2>Thực phẩm <br />100% Organic</h2>
-                <p>Có sẵn nhận và giao hàng miễn phí</p>
-                <a href="./shop-grid.html" class="primary-btn">Mua sắm ngay</a>
-            </div>
-        </div>
-    </div>
-
-</section>
-<!-- Breadcrumb Section End -->
-
-<!-- Categories Section Begin -->
-<section class="categories mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h2>Danh mục sản phẩm</h2>
-                </div>
-            </div>
-            <div class="categories__slider owl-carousel">
-                @foreach($all_category as $key => $catego)
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_danhmuc/'.$catego->hinhAnh)}}">
-                        <h5><a href="#">{{$catego->tenDanhMuc}}</a></h5>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Categories Section End -->
-
 <!-- Featured Section Begin -->
 <section class="featured spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>Sản phẩm nổi bật</h2>
+                    <h2>Kết quả tìm kiếm</h2>
                 </div>
             </div>
         </div>
         <div class="row featured__filter">
-         @foreach($all_product_home as $key => $product_home)
+            @foreach($search_products as $key => $product_home)
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                 <div class="featured__item">
                     <div class="featured__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product_home->hinhAnhsp)}}">
