@@ -16,7 +16,6 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        return view('client.Home');
         $all_category = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
         //$allSanPham = DB::table('SanPham')->join('DanhMucSanPham', 'DanhMucSanPham.maDanhMuc', '=', 'SanPham.maDanhMuc')->orderBy('SanPham.maSanPham', 'desc')->get();
         $all_product_home = DB::table('SanPham')->where('hienThisp', '1')->orderby('maSanPham', 'desc')->limit(8)->get();
