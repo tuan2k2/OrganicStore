@@ -57,10 +57,8 @@
                         <div class="product__details__price">{{number_format($value->donGia).' VNĐ'}}</div>
                         <div class="product__details__quantity">
                             <div class="quantity">
-                                <div class="pro-qty_card">
-                                    <span class="dec qtybtn_card">-</span>
+                                <div class="pro-qty">
                                     <input type="number" name="qty" min="0" value="1" />
-                                    <span class="inc qtybtn_card">+</span>
                                     <input type="hidden" name="productid_hidden" value="{{$value->maSanPham}}" />
                                 </div>
                             </div>
