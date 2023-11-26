@@ -55,7 +55,7 @@
                         <div class="col-lg-4 col-md-5">
                             <div class="filter__sort">
                                 <span>Sắp xếp</span>
-                                <select class="select-filter">
+                                <select class="select-filter" id="select-filter">
                                     <option value="0">Default</option>
                                     <option value="?kystu=asc">A-Z</option>
                                     <option value="?gia=asc">Giá từ cao - thấp</option>
@@ -63,6 +63,27 @@
                                 </select>
                             </div>
                         </div>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                        <script>
+                            $(document).ready(function() {
+
+                                $(document).ready(function() {
+                                    var active = location.search;
+                                    $('#select-filter option[value"' + active + '"]').attr('selected', 'selected');
+                                })
+                                $('.select-filter').change(function() {
+                                    var value = $(this).find(':selected').val(); // Sửa đổi $this thành $(this)
+                                    //alert(value);
+                                    if (value != "0") {
+                                        var url = window.location.pathname + value; // Lấy URL hiện tại và thêm giá trị lọc vào sau dấu "?"
+                                        window.location.href = url; // Chuyển hướng trang
+                                    } else {
+                                        alert('Hãy lọc sản phẩm');
+                                    }
+                                });
+                            });
+                        </script>
                         <div class="col-lg-4 col-md-4">
                             <div class="filter__found">
                                 <h6>Sản phẩm mới nhất</h6>
@@ -79,7 +100,7 @@
                     @foreach($all_product as $key => $product)
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product->hinhAnhsp)}}">
+                            <div class="product__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product->hinhAnhsp)}}" onclick="redirectToDetail('{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}')" onmouseover="changeCursor()">
                                 <ul class="product__item__pic__hover">
                                     <li>
                                         <a href="#"><i class="fa fa-heart"></i></a>
@@ -92,13 +113,27 @@
                                     </li>
                                 </ul>
                             </div>
+                            <script>
+                                function redirectToDetail(url) {
+                                    window.location.href = url;
+                                }
+
+                                function changeCursor() {
+                                    document.body.style.cursor = 'pointer';
+                                }
+                            </script>
+
+
                             <div class="product__item__text">
-                                <h6><a href="#">{{$product->tenSanPham}}</a></h6>
-                                <h5>{{number_format($product->donGia).' VNĐ'}}</h5>
+                                <h6><a href="{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}">{{$product->tenSanPham}}</a></h6>
+                                <h5><a href="{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}">{{number_format($product->donGia).' VNĐ'}}</a></h5>
                             </div>
                         </div>
                     </div>
                     @endforeach
+                </div>
+                <div style=" display: flex; justify-content: center;align-items: center;">
+                    {{ $all_product-> links('pagination::bootstrap-4')}}
                 </div>
             </div>
         </div>

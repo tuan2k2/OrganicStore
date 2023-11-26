@@ -28,13 +28,13 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
-                    <img class="product__details__pic__item--large" src="{{ asset('database/mysql_anh/anh_sanpham/' . $value->hinhAnhsp) }}" alt="" height="540px" width="550px"/>
+                        <img class="product__details__pic__item--large" src="{{ asset('database/mysql_anh/anh_sanpham/' . $value->hinhAnhsp) }}" alt="" height="540px" width="550px" />
                     </div>
                     <div class="product__details__pic__slider owl-carousel">
-                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-1.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-1.jpg') }}" alt="" height="120px" width="120px"/>
-                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-2.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-2.jpg') }}" alt="" height="120px" width="120px"/>
-                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-3.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-3.jpg') }}" alt="" height="120px" width="120px"/>
-                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-4.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-4.jpg') }}" alt="" height="120px" width="120px"/>
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-1.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-1.jpg') }}" alt="" height="120px" width="120px" />
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-2.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-2.jpg') }}" alt="" height="120px" width="120px" />
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-3.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-3.jpg') }}" alt="" height="120px" width="120px" />
+                        <img data-imgbigurl="{{ asset('frontend/img/product/details/product-details-4.jpg') }}" src="{{ asset('frontend/img/product/details/thumb-4.jpg') }}" alt="" height="120px" width="120px" />
                     </div>
                 </div>
             </div>
@@ -57,14 +57,16 @@
                         <div class="product__details__price">{{number_format($value->donGia).' VNĐ'}}</div>
                         <div class="product__details__quantity">
                             <div class="quantity">
-                                <div class="pro-qty">
+                                <div class="pro-qty_card">
+                                    <span class="dec qtybtn_card">-</span>
                                     <input type="number" name="qty" min="0" value="1" />
+                                    <span class="inc qtybtn_card">+</span>
                                     <input type="hidden" name="productid_hidden" value="{{$value->maSanPham}}" />
                                 </div>
                             </div>
                         </div>
                         <button type="submit" class="primary-btn">Thêm vào giỏ hàng</button>
-                    <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     </form>
                     <ul>
                         <li><b>Cân nặng</b> <span>0.5 kg</span></li>
