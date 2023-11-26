@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Redirect;
 session_start();
 
@@ -25,15 +26,33 @@ class CartController extends Controller
         $quantity = $request->input('qty');
         $product_info = DB::table('SanPham')->where('maSanPham', $productId)->first();
 
-        // $data['maSanPham'] = $product_info->maSanPham;
-        // $data['qty'] = $product_info->$quantity;
-        // $data['tenSanPham'] = $product_info->tenSanPham;
-        // $data['donGia'] = $product_info->donGia;
-        // $data['options']['image'] = $product_info->hinhAnhsp;
-        return view('client.Cart');
+        $data['id'] = $product_info->maSanPham; // Set the "id" key
+        $data['qty'] = $quantity;
+        $data['name'] = $product_info->tenSanPham; // Assuming "name" is the name key
+        $data['price'] = $product_info->donGia; // Assuming "price" is the price key
+        $data['weight'] = 0.5;
+        $data['options']['image'] = $product_info->hinhAnhsp;
+
+        Cart::add($data);
+        Cart::setGlobalTax(0.1);
+
+        return Redirect::to('/show-cart');
     }
     public function show_cart(Request $request)
     {
         $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
+        return view('client.Cart')->with('cate_product', $cate_product);
+    }
+    public function delete_cart($rowId)
+    {
+        Cart::update($rowId, 0);
+        return Redirect::to('/show-cart');
+    }
+    public function update_quaty(Request $request)
+    {
+        $rowId = $request->rowId_cart;
+        $qua = $request->cart_quantity;
+        Cart::update($rowId, $qua);
+        return Redirect::to('/show-cart');
     }
 }
