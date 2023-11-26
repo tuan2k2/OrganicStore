@@ -7,6 +7,7 @@ use App\Http\Controllers\client\HomeController;
 use App\Http\Controllers\client\ProductsController;
 use App\Http\Controllers\client\ProductDetailsController;
 use App\Http\Controllers\client\CartController;
+use App\Http\Controllers\client\CheckoutController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\Admin\HomeAdminController;
@@ -49,8 +50,12 @@ Route::post('/getPass/{token}', [forgotPassController::class, 'postGetPass'])->n
 //product
 Route::get('/products', [ProductsController::class, 'getAllProducts'])->name('Products');
 Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProductDetails'])->name('ProductDetails');
-Route::resource('/Cart', CartController::class);
+Route::post('/save-cart', [CartController::class, 'save_cart'])->name('SaveCartProduct');
+Route::get('/show-cart', [CartController::class, 'show_cart'])->name('ShowCartProduct');
+Route::get('/delete-to-cart/{rowId}', [CartController::class, 'delete_cart'])->name('DeleteCartProduct');
+Route::post('/update-cart-quaty', [CartController::class, 'update_quaty'])->name('UpdateQuaty');
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
+
 //admin
 Route::prefix('admin')->middleware(['checkAdminLogin'])->group(function () {
     Route::get('/', [HomeAdminController::class, 'show_dashboard'])->name('admin.dashboard');
@@ -105,3 +110,5 @@ Route::post('/updateSanPham/{maSanPham}', [ProductController::class, 'updateSanP
 Route::get('/allSanPham', [ProductController::class, 'allSanPham'])->name('allSanPham');
 Route::get('/unactive_product/{maSanPham}', [ProductController::class, 'unactive_product'])->name('unactive_product');
 Route::get('/active_product/{maSanPham}', [ProductController::class, 'active_product'])->name('active_product');
+
+Route::get('/login-checkout', [CheckoutController::class, 'login_checkout'])->name('LoginCheckout');
