@@ -19,8 +19,11 @@
 <section class="shoping-cart spad">
     <div class="container">
         <?php
-            use Gloudemans\Shoppingcart\Facades\Cart;
-            $content = Cart::content();
+
+        use Gloudemans\Shoppingcart\Facades\Cart;
+        use Illuminate\Support\Facades\Session;
+
+        $content = Cart::content();
         ?>
         <div class="row">
             <div class="col-lg-12">
@@ -48,23 +51,23 @@
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
                                         <form action="{{URL::to('update-cart-quaty')}}" method="post">
-                                         {{csrf_field()}}
-                                        <div class="pro-qty">
-                                            <input type="number" name="cart_quantity" value="{{$v_content->qty}}" min="0">
-                                        </div>
-                                        <div>
-                                            <input type="hidden" value="{{$v_content->rowId}}" name="rowId_cart" class="form-control">
-                                        </div>
-                                        <div>
-                                             <input type="submit" value="Cập nhật" name="update_qty" class="btn btn-default btn-sm">
-                                        </div>
+                                            {{csrf_field()}}
+                                            <div class="pro-qty">
+                                                <input type="number" name="cart_quantity" value="{{$v_content->qty}}" min="0">
+                                            </div>
+                                            <div>
+                                                <input type="hidden" value="{{$v_content->rowId}}" name="rowId_cart" class="form-control">
+                                            </div>
+                                            <div>
+                                                <input type="submit" value="Cập nhật" name="update_qty" class="btn btn-default btn-sm">
+                                            </div>
                                         </form>
                                     </div>
                                 </td>
                                 <td class="shoping__cart__total">
                                     <?php
-                                        $subtotal = $v_content->price * $v_content->qty;
-                                        echo number_format($subtotal).' VNĐ';
+                                    $subtotal = $v_content->price * $v_content->qty;
+                                    echo number_format($subtotal) . ' VNĐ';
                                     ?>
                                 </td>
                                 <td class="shoping__cart__item__close">
@@ -80,17 +83,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__btns">
-                    <a href="#" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
-                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                        Cập nhật giỏ hàng</a>
+                    <a href="{{Route('Products')}}" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="shoping__continue">
                     <div class="shoping__discount">
                         <h5>Mã giảm giá</h5>
-                        <form action="#">
-                            <input type="text" placeholder="Nhập mã giảm giá">
+                        <form method="POST" action="{{Route('checkCoupon')}}">
+                            @csrf
+                            <input type="text" name="check_coupon" placeholder="Nhập mã giảm giá">
                             <button type="submit" class="site-btn">Áp dụng</button>
                         </form>
                     </div>
@@ -106,7 +108,22 @@
                         <li>Phí giao hàng <span>Free</span></li>
                         <li>Thành tiền <span>{{Cart::total(0, ',', '.').' VNĐ'}}</span></li>
                     </ul>
-                    <a href="{{URL::to('/login-checkout')}}" class="primary-btn">Thanh toán</a>
+                    <?php
+                    $url = route('CheckoutPay');
+                    Session::put('previous_url', $url);
+                    ?>
+                    <?php
+                    $idKH = Session::get('idKH');
+                    if ($idKH != NULL) {
+                    ?>
+                        <a href="{{ route('CheckoutPay') }}" class="primary-btn">Thanh toán</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="{{ route('login') }}" class="primary-btn">Thanh toán</a>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         </div>

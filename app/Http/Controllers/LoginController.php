@@ -20,6 +20,7 @@ class LoginController extends Controller
     {
         $taikhoan = $request->input('taikhoan');
         $pass = $request->input('matKhau');
+        $previousUrl = Session::get('previous_url');
 
         // Kiểm tra xem người dùng là Admin hay Khách hàng
         $isAdmin = Admin::where('taikhoan', $taikhoan)->where('matKhau', $pass)->first();
@@ -33,11 +34,21 @@ class LoginController extends Controller
         } elseif ($isCustomer) {
             // Đăng nhập thành công với tư cách Khách hàng
             session(['khachHang_data' => $isCustomer]);
-            return redirect()->route('home');
+            Session::put('idKH', $isCustomer->idKH);
+            if ($previousUrl) {
+                if ($previousUrl) {
+                    Session::forget('previous_url');
+                    return redirect()->route('CheckoutPay');
+                }
+            } else {
+                return  redirect()->route('home');
+            }
         } else {
             return redirect()->route('login')->with('message', 'Tài khoản hoặc mật khẩu không chính xác');
         }
     }
+
+
     public function login_facebook()
     {
         return Socialite::driver('facebook')->redirect();
@@ -46,10 +57,18 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('facebook')->user();
         $authUser = $this->findOrCreateUser($user, 'facebook');
+        $previousUrl = Session::get('previous_url');
 
         session(['khachHang_data' => $authUser]);
 
-        return redirect()->route('home')->with('message', 'Đăng nhập thành công');
+        if ($previousUrl) {
+            if ($previousUrl) {
+                Session::forget('previous_url');
+                return redirect()->route('CheckoutPay');
+            }
+        } else {
+            return  redirect()->route('home');
+        }
     }
 
 
@@ -62,10 +81,17 @@ class LoginController extends Controller
     {
         $user = Socialite::driver('google')->user();
         $authUser = $this->findOrCreateUser($user, 'google');
-
+        $previousUrl = Session::get('previous_url');
         session(['khachHang_data' => $authUser]);
 
-        return redirect()->route('home')->with('message', 'Đăng nhập thành công');
+        if ($previousUrl) {
+            if ($previousUrl) {
+                Session::forget('previous_url');
+                return redirect()->route('CheckoutPay');
+            }
+        } else {
+            return  redirect()->route('home');
+        }
     }
 
     public function findOrCreateUser($user, $provider)
@@ -107,6 +133,7 @@ class LoginController extends Controller
         $request->session()->forget('khachHang_data');
         $request->session()->forget('admin_name');
         $request->session()->forget('admin_id');
+        $request->session()->forget('idKH');
         return redirect()->route('login'); // Hoặc điều hướng tới trang đăng nhập
     }
 }

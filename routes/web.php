@@ -16,6 +16,7 @@ use App\Http\Controllers\Client\KhachHangController;
 use App\Http\Controllers\forgotPassController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CouponController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,12 +79,29 @@ Route::prefix('admin')->middleware(['checkAdminLogin'])->group(function () {
     Route::get('/allSanPham', [ProductController::class, 'allSanPham'])->name('allSanPham');
     Route::get('/unactive_product/{maSanPham}', [ProductController::class, 'unactive_product'])->name('unactive_product');
     Route::get('/active_product/{maSanPham}', [ProductController::class, 'active_product'])->name('active_product');
+
+    //don hang
+
+    Route::get('/manage-order', [CheckoutController::class, 'manageOrder'])->name('manageOrder');
+    Route::get('/view-order/{orderid}', [CheckoutController::class, 'viewOrder'])->name('viewOrder');
+
+    //coupon
+    Route::post('/check-coupon', [CouponController::class, 'check_coupon']);
+    Route::get('/inrset-coupon', [CouponController::class, 'inrset_coupon'])->name('admin.insretCoupon');
+    Route::get('/list-coupon', [CouponController::class, 'list_coupon'])->name('admin.listCoupon');
+    Route::post('/inrset-coupon-post', [CouponController::class, 'inrset_coupon_post'])->name('admin.insretCouponPost');
+    Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon']);
 });
 Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProductDetails'])->name('ProductDetails');
 Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/search', [HomeController::class, 'searchController'])->name('search');
+
+//coupon
+
+Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('checkCoupon');
+
 
 //DanhMucSanPham_TrangChu
 Route::get('/danh-muc-san-pham/{maDanhMuc}', [CategoryController::class, 'show_category_home'])->name('showproduct');
@@ -112,3 +130,6 @@ Route::get('/unactive_product/{maSanPham}', [ProductController::class, 'unactive
 Route::get('/active_product/{maSanPham}', [ProductController::class, 'active_product'])->name('active_product');
 
 Route::get('/login-checkout', [CheckoutController::class, 'login_checkout'])->name('LoginCheckout');
+Route::get('/checkoutPay', [CheckoutController::class, 'checkoutPay'])->name('CheckoutPay');
+Route::post('/save_checkout', [CheckoutController::class, 'save_checkout'])->name('save_checkout');
+Route::get('/handCash', [CheckoutController::class, 'save_checkout'])->name('handCash');

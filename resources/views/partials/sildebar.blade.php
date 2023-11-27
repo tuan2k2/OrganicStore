@@ -49,6 +49,30 @@
              </div>
          </div>
      </li>
+     <li class="nav-item">
+         <a class="nav-link collapsed" href="#collapseOrder" data-toggle="collapse" aria-expanded="false" aria-controls="collapseOrder">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Đơn Hàng</span>
+         </a>
+         <div id="collapseOrder" class="collapse" aria-labelledby="headingOrder" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{Route('manageOrder')}}">Quản lý đơn hàng</a>
+             </div>
+         </div>
+     </li>
+
+     <li class="nav-item">
+         <a class="nav-link collapsed" href="#collapseDiscount" data-toggle="collapse" aria-expanded="false" aria-controls="collapseDiscount">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Mã giảm giá</span>
+         </a>
+         <div id="collapseDiscount" class="collapse" aria-labelledby="headingDiscount" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{ Route('admin.insretCoupon') }}">Thêm mã giảm giá</a>
+                 <a class="collapse-item" href="{{ Route('admin.listCoupon') }}">Danh sách mã giảm giá</a>
+             </div>
+         </div>
+     </li>
  </ul>
 
 
