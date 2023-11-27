@@ -100,30 +100,44 @@
                     @foreach($all_product as $key => $product)
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
-                            <div class="product__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product->hinhAnhsp)}}" onclick="redirectToDetail('{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}')" onmouseover="changeCursor()">
-                                <ul class="product__item__pic__hover">
-                                    <li>
-                                        <a href="#"><i class="fa fa-heart"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-retweet"></i></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-shopping-cart"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <script>
-                                function redirectToDetail(url) {
-                                    window.location.href = url;
-                                }
+                            <form action="">
+                                @csrf()
+                                <input type="hidden" value="{{$product->maSanPham}}" class="card_product_id_{{$product->maSanPham}}">
+                                <input type="hidden" value="{{$product->tenSanPham}}" class="card_product_name_{{$product->maSanPham}}">
+                                <input type="hidden" value="{{$product->hinhAnhsp}}" class="card_product_image_{{$product->maSanPham}}">
+                                <input type="hidden" value="{{$product->donGia}}" class="card_product_price_{{$product->maSanPham}}">
+                                <input type="hidden" value="1" class="card_product_qty_{{$product->maSanPham}}">
+                                <div class="product__item__pic set-bg" data-setbg="{{ asset('database/mysql_anh/anh_sanpham/'.$product->hinhAnhsp) }}" onclick="redirectToDetail(event, '{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}')" onmouseover="changeCursor()">
+                                    <ul class="product__item__pic__hover">
+                                        <li>
+                                            <a href="#"><i class="fa fa-heart"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><i class="fa fa-retweet"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="add-to-cart" onclick="addToCart(event)" data-id_product="{{$product->maSanPham}}"><i class="fa fa-shopping-cart"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </form>
+                        <script>
+                            function redirectToDetail(event, url) {
+                                // Ngăn chặn sự kiện lan truyền lên cấp cao hơn
+                                event.stopPropagation();
+                                window.location.href = url;
+                            }
 
-                                function changeCursor() {
-                                    document.body.style.cursor = 'pointer';
-                                }
-                            </script>
+                            function changeCursor() {
+                                document.body.style.cursor = 'pointer';
+                            }
 
-
+                            function addToCart(event) {
+                                // Ngăn chặn sự kiện lan truyền lên cấp cao hơn
+                                event.stopPropagation();
+                                // Thêm logic xử lý thêm vào giỏ hàng ở đây
+                            }
+                        </script>
                             <div class="product__item__text">
                                 <h6><a href="{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}">{{$product->tenSanPham}}</a></h6>
                                 <h5><a href="{{ URL::to('/chi-tiet-san-pham/'.$product->maSanPham) }}">{{number_format($product->donGia).' VNĐ'}}</a></h5>
@@ -139,6 +153,5 @@
         </div>
     </div>
 </section>
-
 <!-- Product Section End -->
 @endsection
