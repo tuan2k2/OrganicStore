@@ -53,8 +53,10 @@ Route::get('/products', [ProductsController::class, 'getAllProducts'])->name('Pr
 Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProductDetails'])->name('ProductDetails');
 Route::post('/save-cart', [CartController::class, 'save_cart'])->name('SaveCartProduct');
 Route::get('/show-cart', [CartController::class, 'show_cart'])->name('ShowCartProduct');
+Route::get('/show-gio-hang', [CartController::class, 'show_giohang'])->name('ShowGioHangProduct');
 Route::get('/delete-to-cart/{rowId}', [CartController::class, 'delete_cart'])->name('DeleteCartProduct');
 Route::post('/update-cart-quaty', [CartController::class, 'update_quaty'])->name('UpdateQuaty');
+Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax'])->name('addfcartajax');
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 
 //admin
