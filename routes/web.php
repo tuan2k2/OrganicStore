@@ -57,6 +57,7 @@ Route::get('/show-gio-hang', [CartController::class, 'show_giohang'])->name('Sho
 Route::get('/delete-to-cart/{rowId}', [CartController::class, 'delete_cart'])->name('DeleteCartProduct');
 Route::post('/update-cart-quaty', [CartController::class, 'update_quaty'])->name('UpdateQuaty');
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax'])->name('addfcartajax');
+
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 
 //admin

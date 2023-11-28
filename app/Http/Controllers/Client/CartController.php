@@ -24,6 +24,7 @@ class CartController extends Controller
      */
     public function save_cart(Request $request)
     {
+
         $productId = $request->input('productid_hidden');
         $quantity = $request->input('qty');
         $product_info = DB::table('SanPham')->where('maSanPham', $productId)->first();
@@ -36,12 +37,14 @@ class CartController extends Controller
         $data['options']['image'] = $product_info->hinhAnhsp;
 
         Cart::add($data);
+        // Cart::destroy();
 
         return Redirect::to('/show-cart');
     }
     public function show_cart(Request $request)
     {
         $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
+
         return view('client.Cart')->with('cate_product', $cate_product);
     }
     public function delete_cart($rowId)
@@ -100,23 +103,24 @@ class CartController extends Controller
         $url_canonical = $request->url();
         $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
         return view('client.Cart_ajax')->with('cate_product', $cate_product)
-        ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)->with('meta_title', $meta_title)->with('url_canonical', $url_canonical);
+            ->with('meta_desc', $meta_desc)->with('meta_keywords', $meta_keywords)->with('meta_title', $meta_title)->with('url_canonical', $url_canonical);
     }
     public function add_cart_ajax(Request $request)
     {
         $data = $request->all();
-        $session_id = substr(md5(microtime()), rand(0,26), 5);
+        print_r($data);
+        $session_id = substr(md5(microtime()), rand(0, 26), 5);
         $cart = Session::get('cart');
-        if($cart==true){
+        if ($cart == true) {
             $is_avaiable = 0;
-            foreach($cart as $key=> $val){
-                if($val['product_id'] == $data['product_id']){
+            foreach ($cart as $key => $val) {
+                if ($val['product_id'] == $data['cart_product_id']) {
                     $is_avaiable++;
                 }
             }
-            if($is_avaiable == 0){
+            if ($is_avaiable == 0) {
                 $cart[] = array(
-                    'session_id' =>$session_id,
+                    'session_id' => $session_id,
                     'product_name' => $data['cart_product_name'],
                     'product_id' => $data['cart_product_id'],
                     'product_image' => $data['cart_product_image'],
@@ -125,9 +129,9 @@ class CartController extends Controller
                 );
                 Session::put('cart', $cart);
             }
-        }else{
+        } else {
             $cart[] = array(
-                'session_id' =>$session_id,
+                'session_id' => $session_id,
                 'product_name' => $data['cart_product_name'],
                 'product_id' => $data['cart_product_id'],
                 'product_image' => $data['cart_product_image'],
