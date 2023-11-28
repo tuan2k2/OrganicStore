@@ -33,37 +33,45 @@
                         </thead>
                         <tbody>
                             @php
-                                use Illuminate\Support\Facades\Session;
-                                print_r(Session::get('cart'));
+                            $total = 0;
                             @endphp
+                            @foreach(Session::get('cart') as $key => $cart)
                             <tr>
                                 <td class="shoping__cart__item">
-                                    <img src="" width="100px" height="100px" alt="">
-                                    <h5></h5>
+                                    <img src="{{asset('database/mysql_anh/anh_sanpham/'.$cart['product_image'])}}" width="100px" height="100px" alt="">
+                                    <h5>{{$cart['product_name']}}</h5>
                                 </td>
                                 <td class="shoping__cart__price">
+                                    {{number_format($cart['product_price']).' VNĐ'}}
                                 </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
-                                        <form action="" method="post">
-                                        <div class="pro-qty">
-                                            <input type="number" name="cart_quantity" value="" min="0">
-                                        </div>
-                                        <div>
-                                            <input type="hidden" value="" name="rowId_cart" class="form-control">
-                                        </div>
-                                        <div>
-                                             <input type="submit" value="Cập nhật" name="update_qty" class="btn btn-default btn-sm">
-                                        </div>
+                                        <form action="{{URL::to('update-cart-quaty')}}" method="post">
+                                            {{csrf_field()}}
+                                            <div class="pro-qty">
+                                                <input type="number" name="cart_quantity" value="{{$cart['product_qty']}}" min="0">
+                                            </div>
+                                            <div>
+                                                <input type="hidden" value="{{$cart['product_id']}}" name="rowId_cart" class="form-control">
+                                            </div>
+                                            <div>
+                                                <input type="submit" value="Cập nhật" name="update_qty" class="btn btn-default btn-sm">
+                                            </div>
                                         </form>
                                     </div>
                                 </td>
                                 <td class="shoping__cart__total">
+                                    <?php
+                                    $subtotal = $cart['product_price'] * $cart['product_qty'];
+                                    $total += $subtotal;
+                                    echo number_format($subtotal) . ' VNĐ';
+                                    ?>
                                 </td>
                                 <td class="shoping__cart__item__close">
-                                    <a href=""><span class="icon_close"></span></a>
+                                    <a href="#"><span class="icon_close"></span></a>
                                 </td>
                             </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -73,8 +81,6 @@
             <div class="col-lg-12">
                 <div class="shoping__cart__btns">
                     <a href="#" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
-                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                        Cập nhật giỏ hàng</a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -92,7 +98,7 @@
                 <div class="shoping__checkout">
                     <h5>Bill</h5>
                     <ul>
-                        <li>Tổng đơn hàng <span></span></li>
+                        <li>Tổng đơn hàng <span>{{number_format($total,0,',','.')}}</span></li>
                         <li>Giảm giá <span>0 VNĐ</span></li>
                         <li>Thuế <span>0 VNĐ</span></li>
                         <li>Phí giao hàng <span>Free</span></li>
