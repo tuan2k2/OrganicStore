@@ -76,7 +76,19 @@
              </div>
          </div>
      </li>
+     <li class="nav-item">
+         <a class="nav-link collapsed" href="#collapseDelivery" data-toggle="collapse" aria-expanded="false" aria-controls="collapseDelivery">
+             <i class="fas fa-fw fa-cog"></i>
+             <span>Vận chuyển</span>
+         </a>
+         <div id="collapseDelivery" class="collapse" aria-labelledby="headingDelivery" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{Route('delivery')}}">Quản lý vận chuyển</a>
+             </div>
+         </div>
+     </li>
+
  </ul>
 
 
- <!-- End of Sidebar -->
+
