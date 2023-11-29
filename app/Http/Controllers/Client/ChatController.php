@@ -4,6 +4,7 @@ namespace App\Http\Controllers\client;
 
 use App\Events\SendMessage;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\KhachHang;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Broadcasting\Broadcasters\PusherBroadcaster;
@@ -26,7 +27,7 @@ class ChatController extends Controller
 
     public function getChat()
     {
-        $users = KhachHang::all();
+        $users = Admin::all();
 
         return view('client.chat', ['users' => $users ?? null, 'id_user' => 66]); //Auth::user()->idKH
     }
