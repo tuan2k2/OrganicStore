@@ -4,29 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Admin;
 use App\Models\KhachHang;
-use PharIo\Manifest\Email;
+use App\Models\Social;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Crypt;
-
+use Laravel\Socialite\Facades\Socialite; //sử dụng Socialite
 class LoginController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
     public function getLogin()
     {
-        return view('Login');
+        return view('checkout/Login');
     }
 
     public function checkLogin(Request $request)
     {
-        $email = $request->input('email');
+        $taikhoan = $request->input('taikhoan');
         $pass = $request->input('matKhau');
-        // $password = $request->input('password');
+        $previousUrl = Session::get('previous_url');
 
         // Kiểm tra xem người dùng là Khách hàng hay Admin
         $isAdminEmail = DB::table('admin')->where('email', $email)->exists();
@@ -42,31 +37,50 @@ class LoginController extends Controller
         } elseif ($isCustomerEmail && $isCustomerPass) {
             $id = DB::table('khachhang')->where('email', $email)->value('idKH');
             $khachhang = DB::table('khachhang')->where('idKH', $id)->first();
-            if ($khachhang) {
-                // Lấy mảng từ session (nếu đã tồn tại)
-                $arrayUser = session('arrayUser', []);
-
-                // Cập nhật đối tượng khách hàng trong mảng
-                $arrayUser['khachhang'] = $khachhang;
-
-                // Lưu mảng vào session
-                session(['arrayUser' => $arrayUser]);
-
-                // In mảng để kiểm tra
-            } else {
-                // Xử lý khi không tìm thấy khách hàng
-            }
-            Session::put('users', $khachhang);
             session(['khachHang_data' => $khachhang]);
             return redirect()->route('home');
         } else {
-            return 'email hoặc pass không đúng';
+            return  redirect()->route('home');
         }
     }
 
+    public function findOrCreateUser($user, $provider)
+    {
+        $existingUser = KhachHang::where('Email', $user->getEmail())->first();
+
+        if (!$existingUser) {
+            $newUser = KhachHang::create([
+                'tenKH' => $user->getName(),
+                'diaChiKH' => null,
+                'SDT' => '',
+                'Email' => $user->getEmail(),
+                'matKhau' => ''
+            ]);
+
+            Social::create([
+                'provider_user_id' => $user->getId(),
+                'provider' => strtoupper($provider),
+                'idKH' => $newUser->idKH
+            ]);
+
+            return $newUser;
+        } else {
+            $socialUser = Social::where('idKH', $existingUser->idKH)->first();
+
+            if (!$socialUser) {
+                Social::create([
+                    'provider_user_id' => $user->getId(),
+                    'provider' => strtoupper($provider),
+                    'idKH' => $existingUser->idKH
+                ]);
+            }
+
+            return $existingUser;
+        }
+    }
     public function logout(Request $request)
     {
-        //   $request->session()->forget('khachHang_data');
+        $request->session()->forget('khachHang_data');
 
         return redirect()->route('login'); // Hoặc điều hướng tới trang đăng nhập
     }

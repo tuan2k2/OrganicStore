@@ -9,14 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Admin</title>
 
     <!-- Custom fonts for this template-->
     <link href=" {{ asset('frontend_admin/vendor/fontawesome-free/css/all.min.css ' )}}" rel="stylesheet " type="text/css">
     <link href=" {{ asset('frontend_admin/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i ' )}}" rel="stylesheet ">
 
     <!-- Custom styles for this template-->
-    <link href=" {{ asset('frontend_admin/css/sb-admin-2.min.css ' )}}" rel="stylesheet ">
+    <link href=" {{ asset('frontend_admin/css/sb-admin-2.css ' )}}" rel="stylesheet ">
 
 </head>
 
@@ -43,20 +43,14 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-
-
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">
                                     @php
-                                    $admin = session('admin_data');
+                                    $isAdmin = session('admin_name');
                                     @endphp
-                                    {{$admin->tenAdmin}}
-
-
+                                    {{$isAdmin}}
                                 </span>
                                 <img class="img-profile rounded-circle" src=" {{ asset('frontend_admin/img/undraw_profile.svg')}}">
                             </a>
@@ -75,7 +69,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ route('logout') }}">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -89,121 +83,13 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Earnings (Monthly)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Earnings (Annual)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
-                                            </div>
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-warning shadow h-100 py-2">
-                                <div class="card-body">
-                                    <div class="row no-gutters align-items-center">
-                                        <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                                Pending Requests</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-comments fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Content Row -->
-                    <div class="row">
-
-
-
-                    </div>
-
-
-
-
+                    @yield('content')
                 </div>
                 <!-- /.container-fluid -->
 
             </div>
             <!-- End of Main Content -->
-
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
-                    </div>
-                </div>
-            </footer>
             <!-- End of Footer -->
 
         </div>
@@ -252,6 +138,100 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('frontend_admin/js/demo/chart-area-demo.js' )}}"></script>
     <script src="{{ asset('frontend_admin/js/demo/chart-pie-demo.js' )}}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            fetch_delivery();
+
+            function fetch_delivery() {
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: '{{url("/select-feeship")}}',
+                    method: 'POST',
+                    data: {
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#load_delivery').html(data);
+                    }
+                });
+            }
+            $(document).on('blur', '.fee_feeship_edit', function() {
+
+                var feeship_id = $(this).data('feeship_id');
+                var fee_value = $(this).text();
+                var _token = $('input[name="_token"]').val();
+                // alert(feeship_id);
+                // alert(fee_value);
+                $.ajax({
+                    url: '{{url("/update-delivery")}}',
+                    method: 'POST',
+                    data: {
+                        feeship_id: feeship_id,
+                        fee_value: fee_value,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        fetch_delivery();
+                    }
+                });
+
+            });
+            $('.add_delivery').click(function() {
+
+                var city = $('.city').val();
+                var province = $('.province').val();
+                var wards = $('.wards').val();
+                var fee_ship = $('.fee_ship').val();
+                var _token = $('input[name="_token"]').val();
+                // alert(city);
+                // alert(province);
+                // alert(wards);
+                // alert(fee_ship);
+                $.ajax({
+                    url: '{{url("/ insert - delivery")}}',
+                    method: 'POST',
+                    data: {
+                        city: city,
+                        province: province,
+                        _token: _token,
+                        wards: wards,
+                        fee_ship: fee_ship
+                    },
+                    success: function(data) {
+                        fetch_delivery();
+                    }
+                });
+
+
+            });
+            $('.choose').on('change', function() {
+                var action = $(this).attr('id');
+                var ma_id = $(this).val();
+                var _token = $('input[name="_token"]').val();
+                var result = '';
+
+                if (action == 'city') {
+                    result = 'province';
+                } else {
+                    result = 'wards';
+                }
+                $.ajax({
+                    url: '{{route("select-delivery")}}',
+                    method: 'POST',
+                    data: {
+                        action: action,
+                        ma_id: ma_id,
+                        _token: _token
+                    },
+                    success: function(data) {
+                        $('#' + result).html(data);
+                    }
+                });
+            });
+        })
+    </script>
 
 </body>
 

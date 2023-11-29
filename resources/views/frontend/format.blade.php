@@ -22,15 +22,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script type="text/javascript">
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    </script>
 </head>
 
 <body>
@@ -166,14 +157,15 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active">
-                                <a href="./index.html">Trang chủ</a>
+                                <a id="a_tc" href="{{ route('home')}}">Trang chủ</a>
                             </li>
-                            <li><a href="./shop-grid.html">Mua hàng</a></li>
+                            <li><a id="a_mh" href="{{route('Products')}}">Mua hàng</a></li>
                             <li>
                                 <a href="#">Danh mục</a>
                                 <ul class="header__menu__dropdown">
                                     <li>
-                                        <a href="./shoping-cart.html">Giỏ hàng</a>
+
+                                        <a href="route('ShowGioHangProduct')">Giỏ hàng</a>
                                     </li>
                                     <li>
                                         <a href="./checkout.html">Thông tin giao hàng của bạn</a>
@@ -192,7 +184,7 @@
                                     <span>1</span></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-shopping-cart"></i>
+                                <a href="{{URL::to('/show-gio-hang')}}"><i class="fa fa-shopping-cart"></i>
                                     <span>3</span></a>
                             </li>
                             <li>
@@ -217,8 +209,9 @@
                 <div class="col-lg-12">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <input type="text" placeholder="Bạn đang cần gì?" />
+                            <form method="POST" action="{{route('search')}}">
+                                @csrf
+                                <input type="text" name="keyword_submit" placeholder="Bạn đang cần gì?" />
                                 <button type="submit" class="site-btn">
                                     Tìm kiếm
                                 </button>
@@ -331,7 +324,61 @@
     <script src="{{ asset('frontend/js/mixitup.min.js') }}"></script>
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('frontend/js/sweetalert.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.add-to-cart').click(function() {
+                var id = $(this).data('id_product');
+                var cart_product_id = $('.card_product_id_' + id).val();
+                var cart_product_name = $('.card_product_name_' + id).val();
+                var cart_product_image = $('.card_product_image_' + id).val();
+                var cart_product_price = $('.card_product_price_' + id).val();
+                var cart_product_qty = $('.card_product_qty_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: '{{url("/add-cart-ajax")}}',
+                    method: 'POST',
+                    data: {
+                        cart_product_id: cart_product_id,
+                        cart_product_name: cart_product_name,
+                        cart_product_image: cart_product_image,
+                        cart_product_price: cart_product_price,
+                        cart_product_qty: cart_product_qty,
+                        _token: _token,
+                    },
+                    success: function(data) {
+                        alert(data);
+                    },
+                    url: '{{route("addfcartajax")}}',
+                    method: 'POST',
+                    data: {
+                        cart_product_id: cart_product_id,
+                        cart_product_name: cart_product_name,
+                        cart_product_image: cart_product_image,
+                        cart_product_price: cart_product_price,
+                        cart_product_qty: cart_product_qty,
+                        _token: _token,
+                    },
+                    success: function(data) {
+                        swal({
+                                title: "Đã thêm sản phẩm vào giỏ hàng",
+                                text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                showCancelButton: true,
+                                cancelButtonText: "Xem tiếp",
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "Đi đến giỏ hàng",
+                                closeOnConfirm: false
+                            },
+                            function() {
+                                window.location.href = "{{route('ShowGioHangProduct')}}";
+                            });
+
+                    },
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>

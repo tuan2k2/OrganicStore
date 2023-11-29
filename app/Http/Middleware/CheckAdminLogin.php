@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class isAdmin
+class CheckAdminLogin
 {
     /**
      * Handle an incoming request.
@@ -17,14 +16,10 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        $id = $request->input('idAD');
-
-        // Kiểm tra xem email có đuôi '@admin.com'
-        $isAdminId = DB::table('admin')->where('idAD', $id)->exists();
-        if ($isAdminId) {
-            return $next($request); // Cho phép tiếp tục nếu email có trong bảng 'admin'
-        } else {
-            return redirect()->route('login'); // Trả về lỗi 403 nếu không có trong bảng 'admin'
+        if (!$request->session()->has('admin_id') || !$request->session()->has('admin_name')) {
+            return redirect()->route('login'); // Nếu không có thông tin đăng nhập của admin, điều hướng về trang đăng nhập
         }
+
+        return $next($request);
     }
 }
