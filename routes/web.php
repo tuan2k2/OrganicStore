@@ -9,6 +9,7 @@ use App\Http\Controllers\client\CheckoutController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\Admin\HomeAdminController;
+use App\Http\Controllers\client\ChatController;
 use App\Http\Controllers\Client\KhachHangController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -108,3 +109,7 @@ Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProduct
 Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/chat', [ChatController::class, 'getChat'])->name('chat');
+Route::post('/send/chat', [ChatController::class, 'sendChat'])->name('chat.send');
+Route::post("sockets/connect", [ChatController::class, 'connect']);
+Route::post('/search', [HomeController::class, 'searchController'])->name('search');

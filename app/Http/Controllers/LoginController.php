@@ -24,18 +24,18 @@ class LoginController extends Controller
         $previousUrl = Session::get('previous_url');
 
         // Kiểm tra xem người dùng là Khách hàng hay Admin
-        $isAdminEmail = DB::table('admin')->where('email', $email)->exists();
+        $isAdminEmail = DB::table('admin')->where('email', $taikhoan)->exists();
         $isAdminPass =  DB::table('admin')->where('matKhau', $pass)->exists();
-        $isCustomerEmail = DB::table('KhachHang')->where('email', $email)->exists();
+        $isCustomerEmail = DB::table('KhachHang')->where('email', $taikhoan)->exists();
         $isCustomerPass  =  DB::table('KhachHang')->where('matKhau', $pass)->exists();
         if ($isAdminEmail && $isAdminPass) {
 
-            $id = DB::table('admin')->where('email', $email)->value('idAD');
+            $id = DB::table('admin')->where('email', $taikhoan)->value('idAD');
             $admin = DB::table('admin')->where('idAD', $id)->first();
             session(['admin_data' => $admin]);
             return redirect()->route('admin.dashboard', ['idAD' => $admin->idAD]);
         } elseif ($isCustomerEmail && $isCustomerPass) {
-            $id = DB::table('khachhang')->where('email', $email)->value('idKH');
+            $id = DB::table('khachhang')->where('email', $taikhoan)->value('idKH');
             $khachhang = DB::table('khachhang')->where('idKH', $id)->first();
             session(['khachHang_data' => $khachhang]);
             return redirect()->route('home');
