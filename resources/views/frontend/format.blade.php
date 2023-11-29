@@ -23,14 +23,14 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-  <script type="text/javascript">
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-</script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -195,9 +195,9 @@ $.ajaxSetup({
                                 <a href="#"><i class="fa fa-shopping-cart"></i>
                                     <span>3</span></a>
                             </li>
-                            <li >
+                            <li>
                                 <a href="/chat"><i class="fa fa-commenting"></i>
-                                <span>3</span></a>
+                                    <span>3</span></a>
                             </li>
                         </ul>
                     </div>
@@ -239,7 +239,7 @@ $.ajaxSetup({
         </div>
     </section>
     <!-- Hero Section End -->
-
+    <div id="notification" class="mx-3 invisible"></div>
     @yield('content')
 
     <!-- Footer Section Begin -->

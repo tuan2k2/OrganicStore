@@ -26,5 +26,5 @@ Route::group(['middleware' => ['isAdmin'], 'prefix' => 'admin'], function () {
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/chat', [ChatController::class, 'getChat'])->name('chat');
 Route::post('/send/chat', [ChatController::class, 'sendChat'])->name('chat.send');
-Route::post("sockets/connect", [ChatController::class,'connect']);
-
+Route::post("sockets/connect", [ChatController::class, 'connect']);
+Route::get('/users', 'ChatController@showUser');
