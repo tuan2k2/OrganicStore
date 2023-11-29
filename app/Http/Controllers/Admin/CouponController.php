@@ -19,7 +19,6 @@ class CouponController extends Controller
     {
         $coupon = Session::get('coupon');
         if ($coupon == true) {
-
             Session::forget('coupon');
             return redirect()->back()->with('message', 'Xóa mã khuyến mãi thành công');
         }

@@ -37,7 +37,6 @@ class CartController extends Controller
         $data['options']['image'] = $product_info->hinhAnhsp;
 
         Cart::add($data);
-        // Cart::destroy();
 
         return Redirect::to('/show-cart');
     }
@@ -75,7 +74,6 @@ class CartController extends Controller
                             'coupon_code' => $coupon->coupon_code,
                             'coupon_condition' => $coupon->coupon_condition,
                             'coupon_number' => $coupon->coupon_number,
-
                         );
                         Session::put('coupon', $cou);
                     }
@@ -108,7 +106,6 @@ class CartController extends Controller
     public function add_cart_ajax(Request $request)
     {
         $data = $request->all();
-        print_r($data);
         $session_id = substr(md5(microtime()), rand(0, 26), 5);
         $cart = Session::get('cart');
         if ($cart == true) {
@@ -141,5 +138,97 @@ class CartController extends Controller
         }
         Session::put('cart', $cart);
         Session::save();
+    }
+
+    public function delete_sp($session_id)
+    {
+        $cart = Session::get('cart');
+        // echo '<pre>';
+        // print_r($cart);
+        // echo '</pre>';
+        if ($cart == true) {
+            foreach ($cart as $key => $val) {
+                if ($val['session_id'] == $session_id) {
+                    unset($cart[$key]);
+                }
+            }
+            Session::put('cart', $cart);
+            return redirect()->back()->with('message', 'Xóa sản phẩm thành công');
+        } else {
+            return redirect()->back()->with('message', 'Xóa sản phẩm thất bại');
+        }
+    }
+
+    public function update_cart(Request $request)
+    {
+        $data = $request->all();
+        $cart = Session::get('cart');
+        if ($cart == true) {
+            $message = 'Cập nhật giỏ hàng thành công';
+
+            foreach ($data['cart_qty'] as $key => $qty) {
+                // $i = 0;
+                foreach ($cart as $session => $val) {
+                    //  $i++;
+
+                    if ($val['session_id'] == $key) {
+
+                        $cart[$session]['product_qty'] = $qty;
+                    }
+                }
+            }
+            Session::put('cart', $cart);
+            return redirect()->back()->with('message', $message);
+        } else {
+            return redirect()->back()->with('message', 'Cập nhật số lượng thất bại');
+        }
+    }
+
+    public function delete_all()
+    {
+        $cart = Session::get('cart');
+        if ($cart == true) {
+            // Session::destroy();
+            Session::forget('cart');
+            Session::forget('coupon');
+            return redirect()->back()->with('message', 'Xóa hết giỏ thành công');
+        }
+    }
+
+
+    public function check_coupon(Request $request)
+    {
+        $data = $request->all();
+        $coupon = tbl_coupon::where('coupon_code', $data['coupon'])->first();
+        if ($coupon) {
+            $count_coupon = $coupon->count();
+            if ($count_coupon > 0) {
+                $coupon_session = Session::get('coupon');
+                if ($coupon_session == true) {
+                    $is_avaiable = 0;
+                    if ($is_avaiable == 0) {
+                        $cou[] = array(
+                            'coupon_code' => $coupon->coupon_code,
+                            'coupon_condition' => $coupon->coupon_condition,
+                            'coupon_number' => $coupon->coupon_number,
+
+                        );
+                        Session::put('coupon', $cou);
+                    }
+                } else {
+                    $cou[] = array(
+                        'coupon_code' => $coupon->coupon_code,
+                        'coupon_condition' => $coupon->coupon_condition,
+                        'coupon_number' => $coupon->coupon_number,
+
+                    );
+                    Session::put('coupon', $cou);
+                }
+                Session::save();
+                return redirect()->back()->with('message', 'Thêm mã giảm giá thành công');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Mã giảm giá không đúng');
+        }
     }
 }

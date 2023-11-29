@@ -22,10 +22,12 @@ class CategoryClientController extends Controller
 
         // $productsList = $products->getAllProducts();
 
-        $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
+        //  $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
         //$allSanPham = DB::table('SanPham')->join('DanhMucSanPham', 'DanhMucSanPham.maDanhMuc', '=', 'SanPham.maDanhMuc')->orderBy('SanPham.maSanPham', 'desc')->get();
-        $all_product = DB::table('SanPham')->where('hienThisp', '1')->orderby('maSanPham', 'desc')->paginate(12);
+        //  $all_product = DB::table('SanPham')->where('hienThisp', '1')->orderby('maSanPham', 'desc')->paginate(12);
         // Trả về view 'home' và truyền dữ liệu vào view
-        return view('client.Products')->with('category', $cate_product)->with('all_product', $all_product);
+        dd(Session::get('arrayUsers'));
+
+        //return view('client.Products')->with('category', $cate_product)->with('all_product', $all_product);
     }
 }
