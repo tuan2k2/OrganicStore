@@ -100,6 +100,7 @@ Route::prefix('admin')->middleware(['checkAdminLogin'])->group(function () {
     Route::get('/inrset-coupon', [CouponController::class, 'inrset_coupon'])->name('admin.insretCoupon');
     Route::get('/list-coupon', [CouponController::class, 'list_coupon'])->name('admin.listCoupon');
     Route::post('/inrset-coupon-post', [CouponController::class, 'inrset_coupon_post'])->name('admin.insretCouponPost');
+
     Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon']);
 
     //Delivery
@@ -150,3 +151,7 @@ Route::get('/login-checkout', [CheckoutController::class, 'login_checkout'])->na
 Route::get('/checkoutPay', [CheckoutController::class, 'checkoutPay'])->name('CheckoutPay');
 Route::post('/save_checkout', [CheckoutController::class, 'save_checkout'])->name('save_checkout');
 Route::get('/handCash', [CheckoutController::class, 'save_checkout'])->name('handCash');
+Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon'])->name('deletecoupon');
+Route::get('/edit-coupon/{coupon_id}', [CouponController::class, 'edit_coupon'])->name('editcoupon');
+Route::post('/update-coupon/{coupon_id}', [CouponController::class, 'update_coupon'])->name('updatecoupon');
+Route::post('/search-danhmuc', [CategoryController::class, 'search_danhmuc'])->name('search_danhmuc');

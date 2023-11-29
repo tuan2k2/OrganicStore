@@ -5,14 +5,6 @@
     <div class="panel-heading">
       Danh sách sản phẩm
     </div>
-    <?php
-    use Illuminate\Support\Facades\Session;
-        $message_1 = Session::get('message');
-        if ($message_1) {
-            echo '<span class="text-alert">' . $message_1 . '</span>';
-            Session::put('message', null);
-        }
-    ?>
     <div class="row w3-res-tb">
       <div class="col-sm-5 m-b-xs">
         <select class="input-sm form-control w-sm inline v-middle">
@@ -44,6 +36,14 @@
             {{ Session::get('unsuccess_message') }}
         </div>
         @endif
+        <?php
+            use Illuminate\Support\Facades\Session;
+                $message_1 = Session::get('message');
+                if ($message_1) {
+                    echo '<span class="text-alert">' . $message_1 . '</span>';
+                    Session::put('message', null);
+                }
+        ?>
       <table class="table table-striped b-t b-light">
         <thead>
           <tr>

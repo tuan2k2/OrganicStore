@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Models\tbl_coupon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Doctrine\DBAL\Schema\Table;
+use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests;
 use Illuminate\Support\Facades\Redirect;
+session_start();
 
 class CouponController extends Controller
 {
@@ -14,7 +19,24 @@ class CouponController extends Controller
     {
         return view('admin.coupon.insertCoupon');
     }
-
+    public function edit_coupon($coupon_id)
+    {
+        $editCoupon = DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->get();
+        $manageallsp = view('admin.coupon.editCoupon')->with('editCoupon', $editCoupon);
+        return view('admin.Home')->with('admin.cateories.editSanPham', $manageallsp);
+    }
+    public function update_coupon(Request $request, $coupon_id)
+    {
+        $data = array();
+        $data['coupon_name'] = $request->input('coupon_name');
+        $data['coupon_time'] = $request->input('coupon_time');
+        $data['coupon_condition'] = $request->input('coupon_condition');
+        $data['coupon_number'] = $request->input('coupon_number');
+        $data['coupon_code'] = $request->input('coupon_code');
+        DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->update($data);
+        Session::put('message', 'Cập nhật mã giảm thành công');
+        return Redirect::to('/admin/list-coupon');
+    }
     public function unset_coupon()
     {
         $coupon = Session::get('coupon');
@@ -25,10 +47,9 @@ class CouponController extends Controller
     }
     public function delete_coupon($coupon_id)
     {
-        $coupon = tbl_coupon::find($coupon_id);
-        $coupon->delete();
+        DB::table('tbl_coupon')->where('coupon_id', $coupon_id)->delete();
         Session::put('message', 'Xóa mã giảm giá thành công');
-        return Redirect()->route('admin.coupon.listCoupon');
+        return Redirect::to('/admin/list-coupon');
     }
 
     public function inrset_coupon_post(Request $request)
@@ -45,7 +66,7 @@ class CouponController extends Controller
         $coupon->save();
 
         Session::put('message', 'Thêm mã giảm giá thành công');
-        return Redirect()->route('admin.insretCoupon');
+        return Redirect::to('/admin/list-coupon');
     }
 
     public function list_coupon()

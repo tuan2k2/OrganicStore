@@ -91,5 +91,19 @@ class CategoryController extends Controller
         $category_name = DB::table('DanhMucSanPham')->where('DanhMucSanPham.maDanhMuc', $maDanhMuc)->limit(1)->get();
         return view('client.show_category')->with('category', $cate_product)->with('category_by_id', $category_by_id)->with('category_name', $category_name);
     }
+    public function search_danhmuc(Request $request)
+    {
+        $keyword = $request->keyword_submit;
+        $all_category = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
+        //$allSanPham = DB::table('SanPham')->join('DanhMucSanPham', 'DanhMucSanPham.maDanhMuc', '=', 'SanPham.maDanhMuc')->orderBy('SanPham.maSanPham', 'desc')->get();
+        $all_product_home = DB::table('SanPham')->where('hienThisp', '1')->orderby('maSanPham', 'desc')->limit(8)->get();
+        // Trả về view 'home' và truyền dữ liệu vào view
+
+        $search_danhmuc = DB::table('DanhMucSanPham')->where('tenDanhMuc', 'like', '%' . $keyword . '%')->get();
+        return view('admin.cateories.allDanhMuc')
+            ->with('all_category', $all_category)
+            ->with('all_product_home', $all_product_home)
+            ->with('search_danhmuc', $search_danhmuc);
+    }
 
 }
