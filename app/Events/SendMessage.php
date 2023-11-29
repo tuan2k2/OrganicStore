@@ -10,21 +10,31 @@ use Illuminate\Queue\SerializesModels;
 class SendMessage implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $name;
+    public $channel;
+    public $to;
+    public $from;
+    public $body;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(string $name)
+    public function __construct(string $channel, string $to, string $from, string $body)
     {
-        $this->name = $name;
+        $this->channel = $channel;
+        $this->to = $to;
+        $this->from = $from;
+        $this->body = $body;
     }
+
     public function broadcastWith()
     {
         return [
-            "name" => $this->name,
+            "channel" => $this->channel,
+            "to" => $this->to,
+            "from" => $this->from,
+            "body" => $this->body,
         ];
     }
     /**
@@ -34,7 +44,7 @@ class SendMessage implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return ['channel1'];
+        return [$this->channel];
     }
     public function broadcastAs()
     {
