@@ -38,7 +38,7 @@
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form id="signUp" method="POST" action="{{ route('register') }}" onsubmit="return validateForm()">
-                <h1>Đăng ký tài khoản</h1>
+                <h2>Đăng ký tài khoản</h2>
                 <div class="social-icons">
                     <a href="{{ route('login-google') }}" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
                     <a href="#" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
@@ -48,10 +48,10 @@
                 <input type="text" name="tenKH" placeholder="Họ và tên" value="{{ old('tenKH') }}" id="tenKH">
                 <div id="errorTenKH" class="error-message"></div>
 
-                <input type="text" name="SDT" placeholder="Phone Number" value="{{ old('SDT') }}" id="SDT">
+                <input type="text" name="SDT" placeholder="SĐT" value="{{ old('SDT') }}" id="SDT">
                 <div id="errorSDT" class="error-message"></div>
 
-                <input name="taikhoan" placeholder="taikhoan" value="{{ old('taikhoan') }}" id="taikhoan">
+                <input name="taikhoan" placeholder="Tên đăng nhập" value="{{ old('taikhoan') }}" id="taikhoan">
                 <div id="errorTaiKhoan" class="error-message"></div>
 
                 <input type="password" name="password" placeholder="Password" id="password">
@@ -72,7 +72,7 @@
                     <a href="{{ route('login-google') }}" class="icon"><i id="icon" class="fa-brands fa-google"></i></a>
                     <a href="{{ route('login-facebook') }}" class="icon"><i id="icon" class="fa-brands fa-facebook-f"></i></a>
                 </div>
-                <span>hoặc sử dụng TaiKhoan và mật khẩu của bạn</span>
+                <span>hoặc sử dụng tài khoản và mật khẩu của bạn</span>
                 <?php
                 $message = Session::get('message');
                 if ($message) {
@@ -80,7 +80,7 @@
                     Session::put('message', null);
                 }
                 ?>
-                <input name="taikhoan" placeholder="Nhập tài khoản...">
+                <input name="taikhoan" placeholder="Tên đăng nhập">
                 <input type="password" name="matKhau" placeholder="Mật khẩu">
                 <p>Quên mật khẩu? Nhấn tại <a id="forgot_pass" href="{{route('forgotPass')}}">đây</a></p>
                 <button>Đăng nhập</button>

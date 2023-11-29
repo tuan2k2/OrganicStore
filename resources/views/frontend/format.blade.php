@@ -164,7 +164,7 @@
                                 <a href="#">Danh mục</a>
                                 <ul class="header__menu__dropdown">
                                     <li>
-                                        <a href="./shoping-cart.html">Giỏ hàng</a>
+                                        <a href="{{URL::to('/show-gio-hang')}}">Giỏ hàng</a>
                                     </li>
                                     <li>
                                         <a href="./checkout.html">Thông tin giao hàng của bạn</a>
@@ -332,7 +332,7 @@
                 var _token = $('input[name="_token"]').val();
                 //alert(cart_product_name);
                 $.ajax({
-                url: '{{url('/add-cart-ajax')}}',
+                url: '{{url("/add-cart-ajax")}}',
                 method: 'POST',
                 data:{
                     cart_product_id:cart_product_id,

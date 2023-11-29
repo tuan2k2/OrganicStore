@@ -27,29 +27,23 @@
             </div>
         </div>
         <div class="table-responsive">
-            <?php
+        <?php
 
             use Illuminate\Support\Facades\Session;
-
-            $message = Session::get('message');
-            if ($message) {
-                echo '<span class="text-alert">' . $message . '</span>';
-                Session::put('message', null);
+            $message_1 = Session::get('message');
+            if ($message_1) {
+            echo '<span class="text-alert">' . $message_1 . '</span>';
+            Session::put('message', null);
             }
             ?>
             <table class="table table-striped b-t b-light">
                 <thead>
                     <tr>
-
-
                         <th>Tên mã giảm giá</th>
                         <th>Mã giảm giá</th>
                         <th>Số lượng giảm giá</th>
                         <th>Điều kiện giảm giá</th>
                         <th>Số giảm</th>
-
-
-
                     </tr>
                 </thead>
                 <tbody>
@@ -81,18 +75,14 @@
                                 <?php
                                 } else {
                                 ?>
-                                    Giảm {{$cou->coupon_number}} k
+                                    Giảm {{$cou->coupon_number}} VNĐ
                                 <?php
                                 }
                                 ?>
                             </span></td>
 
-                        <td>
-
-                            <a onclick="return confirm('Bạn có chắc là muốn xóa mã này ko?')" href="{{URL::to('/delete-coupon/'.$cou->coupon_id)}}" class="active styling-edit" ui-toggle-class="">
-                                <i class="fa fa-times text-danger text"></i>
-                            </a>
-                        </td>
+                        <td><a href="{{ URL::to('edit-coupon', ['coupon_id' => $cou->coupon_id]) }}" class="active" ui-toggle-class="">Sửa</a></td>
+                        <td><a onclick="return confirm('Bạn có chắc chắn muốn xóa mã giảm này không?')" href="{{ URL::to('delete-coupon', ['coupon_id' => $cou->coupon_id]) }}" class="active styling-edit" ui-toggle-class=""><i class="fa fa-trash"></i></a></td>
                     </tr>
                     @endforeach
                 </tbody>
