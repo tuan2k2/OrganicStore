@@ -17,6 +17,7 @@ use App\Http\Controllers\forgotPassController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\Admin\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +57,13 @@ Route::get('/show-cart', [CartController::class, 'show_cart'])->name('ShowCartPr
 Route::get('/show-gio-hang', [CartController::class, 'show_giohang'])->name('ShowGioHangProduct');
 Route::get('/delete-to-cart/{rowId}', [CartController::class, 'delete_cart'])->name('DeleteCartProduct');
 Route::post('/update-cart-quaty', [CartController::class, 'update_quaty'])->name('UpdateQuaty');
+Route::post('/update-cart', [CartController::class, 'update_cart'])->name('UpdateCart');
+Route::post('/check-coupon', [CartController::class, 'check_coupon']);
+Route::get('/unset-coupon', [CouponController::class, 'unset_coupon']);
 Route::post('/add-cart-ajax', [CartController::class, 'add_cart_ajax'])->name('addfcartajax');
+Route::get('/delete-sp/{session_id}', [CartController::class, 'delete_sp'])->name('delete-sp');
+Route::get('/delete-all', [CartController::class, 'delete_all'])->name('delete-all');
+
 
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 
@@ -94,6 +101,13 @@ Route::prefix('admin')->middleware(['checkAdminLogin'])->group(function () {
     Route::get('/list-coupon', [CouponController::class, 'list_coupon'])->name('admin.listCoupon');
     Route::post('/inrset-coupon-post', [CouponController::class, 'inrset_coupon_post'])->name('admin.insretCouponPost');
     Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon']);
+
+    //Delivery
+    Route::get('/delivery', [DeliveryController::class, 'delivery'])->name('delivery');
+    Route::post('/select-delivery', [DeliveryController::class, 'select_delivery'])->name('select-delivery');
+    Route::post('/insert-delivery', [DeliveryController::class, 'insert_delivery']);
+    Route::post('/select-feeship', [DeliveryController::class, 'select_feeship']);
+    Route::post('/update-delivery', [DeliveryController::class, 'update_delivery']);
 });
 Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProductDetails'])->name('ProductDetails');
 Route::resource('/Cart', CartController::class);

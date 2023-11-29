@@ -35,6 +35,19 @@ class LoginController extends Controller
             // Đăng nhập thành công với tư cách Khách hàng
             session(['khachHang_data' => $isCustomer]);
             Session::put('idKH', $isCustomer->idKH);
+
+            $isCustomerData = ['idKH' => $isCustomer->idKH, /* Other relevant user data */];
+            $existingCustomerData = session('khachHang_data', []);
+            Session::put('arrayUsers', $existingCustomerData);
+
+            // Check if the current user's ID already exists in the session
+            if (!isset($existingCustomerData[$isCustomer->idKH])) {
+                // If it's a new user, save their data using their ID as the key
+                $existingCustomerData[$isCustomer->idKH] = $isCustomerData;
+                session(['khachHang_data' => $existingCustomerData]);
+            }
+
+
             if ($previousUrl) {
                 if ($previousUrl) {
                     Session::forget('previous_url');

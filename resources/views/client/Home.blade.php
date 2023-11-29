@@ -53,13 +53,30 @@
             @foreach($all_product_home as $key => $product_home)
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                 <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product_home->hinhAnhsp)}}">
+                    <div class="featured__item__pic set-bg" data-setbg=" {{ asset('database/mysql_anh/anh_sanpham/'.$product_home->hinhAnhsp)}}" onclick="redirectToDetail(event, '{{ URL::to('/chi-tiet-san-pham/'.$product_home->maSanPham) }}')" onmouseover="changeCursor()">
                         <ul class="featured__item__pic__hover">
                             <li>
                                 <a href="#"><i class="fa fa-heart"></i></a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-shopping-cart"></i></a>
+                                <a type="button" class="add-to-cart" onclick="addToCart(event)" data-id_product="{{$product_home->maSanPham}}"><i class="fa fa-shopping-cart"></i></a>
+                                <script>
+                                    function redirectToDetail(event, url) {
+                                        // Ngăn chặn sự kiện lan truyền lên cấp cao hơn
+                                        event.stopPropagation();
+                                        window.location.href = url;
+                                    }
+
+                                    function changeCursor() {
+                                        document.body.style.cursor = 'pointer';
+                                    }
+
+                                    function addToCart(event) {
+                                        // Ngăn chặn sự kiện lan truyền lên cấp cao hơn
+                                        event.stopPropagation();
+                                        // Thêm logic xử lý thêm vào giỏ hàng ở đây
+                                    }
+                                </script>
                             </li>
                         </ul>
                     </div>
@@ -69,6 +86,7 @@
                     </div>
                 </div>
             </div>
+
             @endforeach
         </div>
     </div>

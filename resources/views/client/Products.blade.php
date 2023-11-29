@@ -113,9 +113,6 @@
                                             <a href="#"><i class="fa fa-heart"></i></a>
                                         </li>
                                         <li>
-                                            <a href="#"><i class="fa fa-retweet"></i></a>
-                                        </li>
-                                        <li>
                                             <a type="button" class="add-to-cart" onclick="addToCart(event)" data-id_product="{{$product->maSanPham}}"><i class="fa fa-shopping-cart"></i></a>
                                         </li>
                                     </ul>
