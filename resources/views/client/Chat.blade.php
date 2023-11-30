@@ -85,7 +85,7 @@
         const title = document.getElementById('title').value;
         $.ajax({
             type: 'POST',
-            url: `{{url('send/chat')}}`,
+            url: `{{route('chat.send')}}`,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name=" csrf-token"]').attr('content')
             },
@@ -100,8 +100,8 @@
     });
     $(document).ready(function() {
         $('.chat_list').on('click', function(event) {
-            console.log("check ownerId", ownerId);
-
+            // console.log("check ownerId", ownerId);
+            //   alert(ownerId);
             if (!ownerId || ownerId != $(this).data('id')) {
                 ownerId = $(this).data('id');
                 console.log("check ownerId", ownerId);

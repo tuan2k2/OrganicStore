@@ -13,6 +13,10 @@ use App\Models\payment;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
+use App\Models\City;
+use App\Models\Province;
+use App\Models\Wards;
+use App\Models\Feeship;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Redirect;
 
@@ -29,7 +33,8 @@ class CheckoutController extends Controller
     public function checkoutPay()
     {
         // $cate_product = DB::table('DanhMucSanPham')->where('hienThi', '1')->orderby('maDanhMuc', 'desc')->get();
-        return view('checkout.checkoutPay');
+        $city = City::orderby('matp', 'ASC')->get();
+        return view('checkout.checkoutPay')->with('city', $city);
     }
 
     public function save_checkout(Request $request)
@@ -123,5 +128,46 @@ class CheckoutController extends Controller
             ->first();
 
         return view('admin.viewOrder')->with('order', $order);
+    }
+
+    public function calculate_fee(Request $request)
+    {
+        $data = $request->all();
+        if ($data['matp']) {
+            $feeship = Feeship::where('fee_matp', $data['matp'])->where('fee_maqh', $data['maqh'])->where('fee_xaid', $data['xaid'])->get();
+            if ($feeship) {
+                $count_feeship = $feeship->count();
+                if ($count_feeship > 0) {
+                    foreach ($feeship as $key => $fee) {
+                        Session::put('fee', $fee->fee_feeship);
+                        Session::save();
+                    }
+                } else {
+                    Session::put('fee', 25000);
+                    Session::save();
+                }
+            }
+        }
+    }
+
+    public function select_delivery_home(Request $request)
+    {
+        $data = $request->all();
+        if ($data['action']) {
+            $output = '';
+            if ($data['action'] == "city") {
+                $select_province = Province::where('matp', $data['ma_id'])->orderby('maqh', 'ASC')->get();
+                $output .= '<option>---Chọn quận huyện---</option>';
+                foreach ($select_province as $key => $province) {
+                    $output .= '<option value="' . $province->maqh . '">' . $province->name . '</option>';
+                }
+            } else {
+                $select_wards = Wards::where('maqh', $data['ma_id'])->orderby('xaid', 'ASC')->get();
+                $output .= '<option>---Chọn xã phường---</option>';
+                foreach ($select_wards as $key => $ward) {
+                    $output .= '<option value="' . $ward->xaid . '">' . $ward->name . '</option>';
+                }
+            }
+        }
     }
 }

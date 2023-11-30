@@ -104,7 +104,7 @@ Route::prefix('admin')->middleware(['checkAdminLogin'])->group(function () {
     //Delivery
     Route::get('/delivery', [DeliveryController::class, 'delivery'])->name('delivery');
     Route::post('/select-delivery', [DeliveryController::class, 'select_delivery'])->name('select-delivery');
-    Route::post('/insert-delivery', [DeliveryController::class, 'insert_delivery']);
+    Route::post('/insert-delivery', [DeliveryController::class, 'insert_delivery'])->name('insertDelivery');
     Route::post('/select-feeship', [DeliveryController::class, 'select_feeship']);
     Route::post('/update-delivery', [DeliveryController::class, 'update_delivery']);
 });
@@ -162,3 +162,8 @@ Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupo
 Route::get('/edit-coupon/{coupon_id}', [CouponController::class, 'edit_coupon'])->name('editcoupon');
 Route::post('/update-coupon/{coupon_id}', [CouponController::class, 'update_coupon'])->name('updatecoupon');
 Route::post('/search-danhmuc', [CategoryController::class, 'search_danhmuc'])->name('search_danhmuc');
+
+//
+
+Route::post('/select-delivery-home', [CheckoutController::class, 'select_delivery_home'])->name('select_delivery_home');
+Route::post('/calculate-fee', [CheckoutController::class, ' calculate_fee']);

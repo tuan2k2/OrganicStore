@@ -1,6 +1,5 @@
 @extends('frontend.admin')
 @section('content')
-
 <div class="row">
     <div class="col-lg-12">
         <section class="panel">
@@ -48,18 +47,15 @@
                             <label for="exampleInputEmail1">Phí vận chuyển</label>
                             <input type="text" name="fee_ship" class="form-control fee_ship" id="exampleInputEmail1" placeholder="Tên danh mục">
                         </div>
-
                         <button type="button" name="add_delivery" class="btn btn-info add_delivery">Thêm phí vận chuyển</button>
                     </form>
                 </div>
 
-                <div id="load_delivery">
+                <div style="margin-top: 10px;" id="load_delivery">
 
                 </div>
 
             </div>
         </section>
-
     </div>
-
     @endsection

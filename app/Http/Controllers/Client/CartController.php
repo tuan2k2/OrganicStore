@@ -24,21 +24,8 @@ class CartController extends Controller
      */
     public function save_cart(Request $request)
     {
-
-        $productId = $request->input('productid_hidden');
-        $quantity = $request->input('qty');
-        $product_info = DB::table('SanPham')->where('maSanPham', $productId)->first();
-
-        $data['id'] = $product_info->maSanPham; // Set the "id" key
-        $data['qty'] = $quantity;
-        $data['name'] = $product_info->tenSanPham; // Assuming "name" is the name key
-        $data['price'] = $product_info->donGia; // Assuming "price" is the price key
-        $data['weight'] = 0.5;
-        $data['options']['image'] = $product_info->hinhAnhsp;
-
-        Cart::add($data);
-
-        return Redirect::to('/show-cart');
+        Session::forget('cart');
+        Session::forget('coupon');
     }
     public function show_cart(Request $request)
     {
