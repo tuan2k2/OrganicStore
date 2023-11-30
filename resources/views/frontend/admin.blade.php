@@ -13,7 +13,6 @@
 
     <!-- Custom fonts for this template-->
     <link href=" {{ asset('frontend_admin/vendor/fontawesome-free/css/all.min.css ' )}}" rel="stylesheet " type="text/css">
-    <link href=" {{ asset('frontend_admin/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i ' )}}" rel="stylesheet ">
 
     <!-- Custom styles for this template-->
     <link href=" {{ asset('frontend_admin/css/sb-admin-2.css ' )}}" rel="stylesheet ">
@@ -141,13 +140,12 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-
             fetch_delivery();
 
             function fetch_delivery() {
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
-                    url: '{{url("/select-feeship")}}',
+                    url: '{{url("/admin/select-feeship")}}',
                     method: 'POST',
                     data: {
                         _token: _token
@@ -157,6 +155,7 @@
                     }
                 });
             }
+
             $(document).on('blur', '.fee_feeship_edit', function() {
 
                 var feeship_id = $(this).data('feeship_id');
@@ -165,7 +164,7 @@
                 // alert(feeship_id);
                 // alert(fee_value);
                 $.ajax({
-                    url: '{{url("/update-delivery")}}',
+                    url: '{{url("/admin/update-delivery")}}',
                     method: 'POST',
                     data: {
                         feeship_id: feeship_id,
@@ -179,18 +178,13 @@
 
             });
             $('.add_delivery').click(function() {
-
-                var city = $('.city').val();
-                var province = $('.province').val();
-                var wards = $('.wards').val();
+                var city = $('#city').val();
+                var province = $('#province').val();
+                var wards = $('#wards').val();
                 var fee_ship = $('.fee_ship').val();
                 var _token = $('input[name="_token"]').val();
-                // alert(city);
-                // alert(province);
-                // alert(wards);
-                // alert(fee_ship);
                 $.ajax({
-                    url: '{{url("/ insert - delivery")}}',
+                    url: '{{url("/admin/insert-delivery")}}',
                     method: 'POST',
                     data: {
                         city: city,
@@ -200,11 +194,12 @@
                         fee_ship: fee_ship
                     },
                     success: function(data) {
-                        fetch_delivery();
+                        alert('Thêm phí vận chuyển thành công !!!');
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(xhr.responseText);
                     }
                 });
-
-
             });
             $('.choose').on('change', function() {
                 var action = $(this).attr('id');
@@ -230,7 +225,7 @@
                     }
                 });
             });
-        })
+        });
     </script>
 
 </body>

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Province;
 use App\Models\City;
 use App\Models\Wards;
+use Illuminate\Support\Facades\DB;
 use App\Models\Feeship;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class DeliveryController extends Controller
 {
@@ -40,9 +42,9 @@ class DeliveryController extends Controller
 
             $output .= '
 					<tr>
-						<td>' . $fee->city->name_city . '</td>
-						<td>' . $fee->province->name_quanhuyen . '</td>
-						<td>' . $fee->wards->name_xaphuong . '</td>
+						<td>' . $fee->city->name . '</td>
+						<td>' . $fee->province->name . '</td>
+						<td>' . $fee->wards->name . '</td>
 						<td contenteditable data-feeship_id="' . $fee->fee_id . '" class="fee_feeship_edit">' . number_format($fee->fee_feeship, 0, ',', '.') . '</td>
 					</tr>
 					';
@@ -58,12 +60,13 @@ class DeliveryController extends Controller
     public function insert_delivery(Request $request)
     {
         $data = $request->all();
-        $fee_ship = new Feeship();
-        $fee_ship->fee_matp = $data['city'];
-        $fee_ship->fee_maqh = $data['province'];
-        $fee_ship->fee_xaid = $data['wards'];
-        $fee_ship->fee_feeship = $data['fee_ship'];
-        $fee_ship->save();
+
+        DB::table('tbl_feeship')->insert([
+            'fee_matp' => $data['city'],
+            'fee_maqh' => $data['province'],
+            'fee_xaid' => $data['wards'],
+            'fee_feeship' => $data['fee_ship'],
+        ]);
     }
     public function delivery(Request $request)
     {
@@ -83,7 +86,6 @@ class DeliveryController extends Controller
                     $output .= '<option value="' . $province->maqh . '">' . $province->name . '</option>';
                 }
             } else {
-
                 $select_wards = Wards::where('maqh', $data['ma_id'])->orderby('xaid', 'ASC')->get();
                 $output .= '<option>---Chọn xã phường---</option>';
                 foreach ($select_wards as $key => $ward) {

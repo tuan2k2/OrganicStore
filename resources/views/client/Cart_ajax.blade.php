@@ -78,8 +78,10 @@
                                 </tr>
                                 @endforeach
                             </tbody>
-
                         </table>
+                        <?php
+                        Session::put('total', $total);
+                        ?>
                         <br>
                         <div class="col-lg-12">
                             <div class="shoping__cart__btns" style="display: flex; justify-content: space-between;">
@@ -147,10 +149,41 @@
                     @if(Session::get('coupon'))
                     <div class="col-lg-12" style=" display: flex; justify-content: space-between;">
                         <a href="{{url('/unset-coupon')}}" class="primary-btn" style="  text-align: center;text-decoration: none;color: #fff;"> Xóa khuyến mãi</a>
-                        <a href="" class="primary-btn" style="  text-align: center;text-decoration: none;color: #fff;">Thanh toán</a>
+                        <?php
+                        $url = route('CheckoutPay');
+                        Session::put('previous_url', $url);
+                        ?>
+                        <?php
+                        $idKH = Session::get('idKH');
+                        if ($idKH != NULL) {
+                        ?>
+                            <a href="{{ route('CheckoutPay') }}" class="primary-btn" style="  text-align: center;text-decoration: none;color: #fff;">Thanh toán</a>
+                        <?php
+                        } else {
+                        ?>
+                            <a href=" {{ route('login') }}" class="primary-btn" style="  text-align: center;text-decoration: none;color: #fff;">Thanh toán</a>
+                        <?php
+                        }
+                        ?>
+
                     </div>
                     @else
-                    <a href="" class="primary-btn">Thanh toán</a>
+                    <?php
+                    $url = route('CheckoutPay');
+                    Session::put('previous_url', $url);
+                    ?>
+                    <?php
+                    $idKH = Session::get('idKH');
+                    if ($idKH != NULL) {
+                    ?>
+                        <a href="{{ route('CheckoutPay') }}" class="primary-btn">Thanh toán</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="{{ route('login') }}" class="primary-btn">Thanh toán</a>
+                    <?php
+                    }
+                    ?>
                     @endif
                 </div>
             </div>
@@ -215,7 +248,7 @@
                         <li>Phí giao hàng <span>Free</span></li>
                         <li>Thành tiền <span></span></li>
                     </ul>
-                    <a href="" class="primary-btn">Thanh toán</a>
+                    <a href="{{route('Products')}}" class="primary-btn">Vui lòng mua hàng để Thanh toán</a>
                 </div>
             </div>
         </div>
