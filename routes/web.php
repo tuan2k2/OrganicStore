@@ -47,7 +47,6 @@ Route::post('/forgot', [forgotPassController::class, 'postgetforgot'])->name('fo
 Route::get('/getPass/{token}', [forgotPassController::class, 'getPass'])->name('getPass');
 Route::post('/getPass/{token}', [forgotPassController::class, 'postGetPass'])->name('postGetPass');
 
-
 //product
 Route::get('/products', [ProductsController::class, 'getAllProducts'])->name('Products');
 Route::get('/productDetails/{id}', [ProductDetailsController::class, 'getProductDetails'])->name('ProductDetails');
@@ -114,6 +113,7 @@ Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/search', [HomeController::class, 'searchController'])->name('search');
+
 Route::get('/chat', [ChatController::class, 'getChat'])->name('chat');
 Route::post('/send/chat', [ChatController::class, 'sendChat'])->name('chat.send');
 Route::post('/sendAdmin/chat', [ChatController::class, 'sendChatAdmin'])->name('chat.send');
@@ -121,3 +121,44 @@ Route::post("sockets/connect", [ChatController::class, 'connect']);
 Route::get('/users', 'ChatController@showUser');
 
 Route::get('/admin/chat', [ChatController::class, 'getChatAdmin'])->name('chat');
+
+
+//coupon
+
+Route::post('/check-coupon', [CartController::class, 'checkCoupon'])->name('checkCoupon');
+
+
+//DanhMucSanPham_TrangChu
+Route::get('/danh-muc-san-pham/{maDanhMuc}', [CategoryController::class, 'show_category_home'])->name('showproduct');
+Route::get('/chi-tiet-san-pham/{maSanPham}', [ProductController::class, 'details_product'])->name('chitietproduct');
+//DanhMucSanPham_KhachHang
+Route::get('/products', [CategoryClientController::class, 'getAllProducts'])->name('Products');
+
+//DanhMucSanPham_Admin
+Route::get('/addDanhMuc', [CategoryController::class, 'addDanhMucSanPham'])->name('addDanhMuc');
+Route::get('/editDanhMuc/{maDanhMuc}', [CategoryController::class, 'editDanhMucSanPham'])->name('editDanhMuc');
+Route::get('/deleteDanhMuc/{maDanhMuc}', [CategoryController::class, 'deleteDanhMucSanPham'])->name('deleteDanhMuc');
+Route::post('/saveDanhMuc', [CategoryController::class, 'saveDanhMucSanPham'])->name('saveDanhMuc');
+Route::post('/updateDanhMuc/{maDanhMuc}', [CategoryController::class, 'updateDanhMucSanPham'])->name('updateDanhMuc');
+Route::get('/allDanhMuc', [CategoryController::class, 'allDanhMucSanPham'])->name('allDanhMuc');
+Route::get('/unactive_category/{maDanhMuc}', [CategoryController::class, 'unactive_category'])->name('unactive_category');
+Route::get('/active_category/{maDanhMuc}', [CategoryController::class, 'active_category'])->name('active_category');
+
+//SanPham
+Route::get('/addSanPham', [ProductController::class, 'addSanPham'])->name('addSanPham');
+Route::get('/editSanPham/{maSanPham}', [ProductController::class, 'editSanPham'])->name('editSanPham');
+Route::get('/deleteSanPham/{maSanPham}', [ProductController::class, 'deleteSanPham'])->name('deleteSanPham');
+Route::post('/saveSanPham', [ProductController::class, 'saveSanPham'])->name('saveSanPham');
+Route::post('/updateSanPham/{maSanPham}', [ProductController::class, 'updateSanPham'])->name('updateSanPham');
+Route::get('/allSanPham', [ProductController::class, 'allSanPham'])->name('allSanPham');
+Route::get('/unactive_product/{maSanPham}', [ProductController::class, 'unactive_product'])->name('unactive_product');
+Route::get('/active_product/{maSanPham}', [ProductController::class, 'active_product'])->name('active_product');
+
+Route::get('/login-checkout', [CheckoutController::class, 'login_checkout'])->name('LoginCheckout');
+Route::get('/checkoutPay', [CheckoutController::class, 'checkoutPay'])->name('CheckoutPay');
+Route::post('/save_checkout', [CheckoutController::class, 'save_checkout'])->name('save_checkout');
+Route::get('/handCash', [CheckoutController::class, 'save_checkout'])->name('handCash');
+Route::get('/delete-coupon/{coupon_id}', [CouponController::class, 'delete_coupon'])->name('deletecoupon');
+Route::get('/edit-coupon/{coupon_id}', [CouponController::class, 'edit_coupon'])->name('editcoupon');
+Route::post('/update-coupon/{coupon_id}', [CouponController::class, 'update_coupon'])->name('updatecoupon');
+Route::post('/search-danhmuc', [CategoryController::class, 'search_danhmuc'])->name('search_danhmuc');
