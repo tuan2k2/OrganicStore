@@ -36,7 +36,6 @@
                                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                                 <div class="chat_ib">
                                     <h5>{{$user->tenKH}} </h5>
-
                                 </div>
                             </div>
                         </div>
@@ -67,6 +66,7 @@
                         <div class="input_msg_write">
                             <input type="text" class="write_msg" placeholder="Type a message" id="title" />
                             <button class="msg_send_btn" type="button" id="send"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+
                         </div>
                     </div>
                 </div>
