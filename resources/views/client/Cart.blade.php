@@ -18,6 +18,13 @@
 </section>
 <section class="shoping-cart spad">
     <div class="container">
+        <?php
+
+        use Gloudemans\Shoppingcart\Facades\Cart;
+        use Illuminate\Support\Facades\Session;
+
+        $content = Cart::content();
+        ?>
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
@@ -32,72 +39,42 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($content as $v_content)
                             <tr>
                                 <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-1.jpg" alt="">
-                                    <h5>Vegetable’s Package</h5>
+                                    <img src="{{asset('database/mysql_anh/anh_sanpham/' .$v_content->options->image)}}" width="100px" height="100px" alt="">
+                                    <h5>{{$v_content->name}}</h5>
                                 </td>
                                 <td class="shoping__cart__price">
-                                    $55.00
+                                    {{number_format($v_content->price).' VNĐ'}}
                                 </td>
                                 <td class="shoping__cart__quantity">
                                     <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
+                                        <form action="{{URL::to('update-cart-quaty')}}" method="post">
+                                            {{csrf_field()}}
+                                            <div class="pro-qty">
+                                                <input type="number" name="cart_quantity" value="{{$v_content->qty}}" min="0">
+                                            </div>
+                                            <div>
+                                                <input type="hidden" value="{{$v_content->rowId}}" name="rowId_cart" class="form-control">
+                                            </div>
+                                            <div>
+                                                <input type="submit" value="Cập nhật" name="update_qty" class="btn btn-default btn-sm">
+                                            </div>
+                                        </form>
                                     </div>
                                 </td>
                                 <td class="shoping__cart__total">
-                                    $110.00
+                                    <?php
+                                    $subtotal = $v_content->price * $v_content->qty;
+                                    echo number_format($subtotal) . ' VNĐ';
+                                    ?>
                                 </td>
                                 <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
+                                    <a href="{{URL::to('/delete-to-cart/'.$v_content->rowId)}}"><span class="icon_close"></span></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-2.jpg" alt="">
-                                    <h5>Fresh Garden Vegetable</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                    $39.00
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                    $39.99
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-3.jpg" alt="">
-                                    <h5>Organic Bananas</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                    $69.00
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                    $69.99
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -106,17 +83,16 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__btns">
-                    <a href="#" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
-                    <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                        Cập nhật giỏ hàng</a>
+                    <a href="{{Route('Products')}}" class="primary-btn cart-btn">Tiếp tục mua hàng</a>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="shoping__continue">
                     <div class="shoping__discount">
                         <h5>Mã giảm giá</h5>
-                        <form action="#">
-                            <input type="text" placeholder="Nhập mã giảm giá">
+                        <form method="POST" action="{{Route('checkCoupon')}}">
+                            @csrf
+                            <input type="text" name="check_coupon" placeholder="Nhập mã giảm giá">
                             <button type="submit" class="site-btn">Áp dụng</button>
                         </form>
                     </div>
@@ -124,12 +100,30 @@
             </div>
             <div class="col-lg-6">
                 <div class="shoping__checkout">
-                    <h5>Tổng đơn hàng</h5>
+                    <h5>Bill</h5>
                     <ul>
-                        <li>Giảm giá <span>$454.98</span></li>
-                        <li>Tổng đơn hàng <span>$454.98</span></li>
+                        <li>Tổng đơn hàng <span>{{Cart::priceTotal(0, ',', '.').' VNĐ'}}</span></li>
+                        <li>Giảm giá <span>0 VNĐ</span></li>
+                        <li>Thuế <span>0 VNĐ</span></li>
+                        <li>Phí giao hàng <span>Free</span></li>
+                        <li>Thành tiền <span>{{Cart::total(0, ',', '.').' VNĐ'}}</span></li>
                     </ul>
-                    <a href="#" class="primary-btn">Giao hàng</a>
+                    <?php
+                    $url = route('CheckoutPay');
+                    Session::put('previous_url', $url);
+                    ?>
+                    <?php
+                    $idKH = Session::get('idKH');
+                    if ($idKH != NULL) {
+                    ?>
+                        <a href="{{ route('CheckoutPay') }}" class="primary-btn">Thanh toán</a>
+                    <?php
+                    } else {
+                    ?>
+                        <a href="{{ route('login') }}" class="primary-btn">Thanh toán</a>
+                    <?php
+                    }
+                    ?>
                 </div>
             </div>
         </div>

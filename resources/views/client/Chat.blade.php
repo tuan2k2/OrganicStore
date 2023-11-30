@@ -30,16 +30,16 @@
                     </div>
                     <div class="inbox_chat cursor-pointer" id="connect">
                         @foreach ($users as $user)
-
-                        <div class="chat_list " data-id="{{$user->idKH}}" data-img="url">
+                        @if ($user->idAD == 1)
+                        <div class="chat_list" data-id="{{$user->idAD}}" data-img="url">
                             <div class="chat_people">
                                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                                 <div class="chat_ib">
-                                    <h5>{{$user->tenKH}} </h5>
-
+                                    <h5>{{$user->tenAdmin}} </h5>
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>
@@ -92,7 +92,7 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 "id": '',
-                'channel': 'chat-' + ownerId + '-with-' + '{{$id_user}}',
+                'channel': 'chat-' + '{{$id_kh}}' + '-with-' + '{{$id_user}}',
                 'body': title,
                 'to': ownerId,
             }
@@ -124,25 +124,27 @@
                     },
                     enabledTransports: ["ws"]
                 });
-                channel = pusher.subscribe('chat-' + ownerId + '-with-' + '{{$id_user}}');
+                channel = pusher.subscribe('chat-' + '{{$id_kh}}' + '-with-' + '{{$id_user}}');
                 connect = !connect;
                 channel.bind('log-message', function(data) {
                     const msgHistoryContainer = document.querySelector('.msg_history');
                     const newDiv = document.createElement('div');
-
-                    if (data.to === ownerId) {
+                    const receivedMsg = document.createElement('div');
+                    const receivedWithdMsg = document.createElement('div');
+                    var userIdNow = "{{ Session::get('idKH') }}";
+                    console.log('check id user', userIdNow);
+                    if (data.from != userIdNow) {
                         newDiv.classList.add('incoming_msg');
                         const incomingMsgImg = document.createElement('div');
+                        receivedMsg.classList.add('received_msg');
+                        receivedWithdMsg.classList.add('received_withd_msg');
                     } else {
                         newDiv.classList.add('outgoing_msg');
                         const incomingMsgImg = document.createElement('div');
+                        receivedMsg.classList.add('sent_msg');
+                        receivedWithdMsg.classList.add('sent_msg');
                     }
 
-                    const receivedMsg = document.createElement('div');
-                    receivedMsg.classList.add('received_msg');
-
-                    const receivedWithdMsg = document.createElement('div');
-                    receivedWithdMsg.classList.add('received_withd_msg');
                     const currentTime = new Date().toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit'
@@ -161,10 +163,9 @@
                     msgHistoryContainer.appendChild(newDiv);
                     // if (channel) {
                     //     channel.unbind_all();
-                    //     const msgHistoryContainer = document.querySelector('.incoming_msg');
-                    //     msgHistoryContainer.innerHTML = '';
-                    //     const msgHistoryContainer1 = document.querySelector('.outgoing_msg');
-                    //     msgHistoryContainer1.innerHTML = '';
+                    //     const msgHistoryContainer = document.querySelector('.msg_history');
+                    //     msgHistoryContainer.innerHTML = ''; // Xóa nội dung của phần tử
+                    //     // ...
                     // }
                 });
             }
