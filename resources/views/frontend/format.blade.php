@@ -7,6 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Ogani | Template</title>
 
     <!-- Google Font -->
@@ -21,7 +22,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/sweetalert.css') }}" type="text/css" />
 </head>
 
 <body>
@@ -187,6 +187,10 @@
                                 <a href="{{URL::to('/show-gio-hang')}}"><i class="fa fa-shopping-cart"></i>
                                     <span>3</span></a>
                             </li>
+                            <li>
+                                <a href="/chat"><i class="fa fa-commenting"></i>
+                                    <span>3</span></a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -228,7 +232,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
-
+    <div id="notification" class="mx-3 invisible"></div>
     @yield('content')
 
     <!-- Footer Section Begin -->
