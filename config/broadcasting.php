@@ -1,7 +1,5 @@
 <?php
-
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Broadcaster
@@ -11,12 +9,10 @@ return [
     | framework when an event needs to be broadcast. You may set this to
     | any of the connections defined in the "connections" array below.
     |
-    | Supported: "pusher", "ably", "redis", "log", "null"
+    | Supported: "pusher", "redis", "log", "null"
     |
     */
-
     'default' => env('BROADCAST_DRIVER', 'null'),
-
     /*
     |--------------------------------------------------------------------------
     | Broadcast Connections
@@ -27,38 +23,34 @@ return [
     | each available type of connection are provided inside this array.
     |
     */
-
     'connections' => [
-
         'pusher' => [
             'driver' => 'pusher',
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
+                'cluster' => 'ap1',
+                'encrypted' => true,
                 'useTLS' => true,
+                'host' => env("LARAVEL_WEBSOCKETS_HOST"),
+                'port' => env("LARAVEL_WEBSOCKETS_PORT"),
+                'scheme' => 'http',
+                // 'curl_options' => [
+                //     CURLOPT_SSL_VERIFYHOST => 0,
+                //     CURLOPT_SSL_VERIFYPEER => 0,
+                // ],
             ],
         ],
-
-        'ably' => [
-            'driver' => 'ably',
-            'key' => env('ABLY_KEY'),
-        ],
-
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
         ],
-
         'log' => [
             'driver' => 'log',
         ],
-
         'null' => [
             'driver' => 'null',
         ],
-
     ],
-
 ];

@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\client\HomeController;
 use App\Http\Controllers\client\ProductsController;
 use App\Http\Controllers\client\ProductDetailsController;
@@ -12,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\client\OrderController;
 use App\Http\Controllers\Admin\HomeAdminController;
 use App\Http\Controllers\Client\CategoryClientController;
+use App\Http\Controllers\client\ChatController;
 use App\Http\Controllers\Client\KhachHangController;
 use App\Http\Controllers\forgotPassController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -47,7 +46,6 @@ Route::get('/forgot', [forgotPassController::class, 'getforgot'])->name('forgotP
 Route::post('/forgot', [forgotPassController::class, 'postgetforgot'])->name('forgot');
 Route::get('/getPass/{token}', [forgotPassController::class, 'getPass'])->name('getPass');
 Route::post('/getPass/{token}', [forgotPassController::class, 'postGetPass'])->name('postGetPass');
-
 
 //product
 Route::get('/products', [ProductsController::class, 'getAllProducts'])->name('Products');
@@ -115,6 +113,15 @@ Route::resource('/Cart', CartController::class);
 Route::get('/Order/Checkout', [OrderController::class, 'getOrder']);
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/search', [HomeController::class, 'searchController'])->name('search');
+
+Route::get('/chat', [ChatController::class, 'getChat'])->name('chat');
+Route::post('/send/chat', [ChatController::class, 'sendChat'])->name('chat.send');
+Route::post('/sendAdmin/chat', [ChatController::class, 'sendChatAdmin'])->name('chat.send');
+Route::post("sockets/connect", [ChatController::class, 'connect']);
+Route::get('/users', 'ChatController@showUser');
+
+Route::get('/admin/chat', [ChatController::class, 'getChatAdmin'])->name('chat');
+
 
 //coupon
 

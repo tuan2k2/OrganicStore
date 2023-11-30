@@ -7,6 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Ogani | Template</title>
 
     <!-- Google Font -->
@@ -21,7 +22,6 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
-    <link rel="stylesheet" href="{{ asset('frontend/css/sweetalert.css') }}" type="text/css" />
 </head>
 
 <body>
@@ -164,7 +164,7 @@
                                 <a href="#">Danh mục</a>
                                 <ul class="header__menu__dropdown">
                                     <li>
-                                     
+
                                         <a href="route('ShowGioHangProduct')">Giỏ hàng</a>
                                     </li>
                                     <li>
@@ -185,6 +185,10 @@
                             </li>
                             <li>
                                 <a href="{{URL::to('/show-gio-hang')}}"><i class="fa fa-shopping-cart"></i>
+                                    <span>3</span></a>
+                            </li>
+                            <li>
+                                <a href="/chat"><i class="fa fa-commenting"></i>
                                     <span>3</span></a>
                             </li>
                         </ul>
@@ -228,7 +232,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
-
+    <div id="notification" class="mx-3 invisible"></div>
     @yield('content')
 
     <!-- Footer Section Begin -->
@@ -332,19 +336,19 @@
                 var cart_product_qty = $('.card_product_qty_' + id).val();
                 var _token = $('input[name="_token"]').val();
                 $.ajax({
-                url: '{{url("/add-cart-ajax")}}',
-                method: 'POST',
-                data:{
-                    cart_product_id:cart_product_id,
-                    cart_product_name:cart_product_name,
-                    cart_product_image:cart_product_image,
-                    cart_product_price:cart_product_price,
-                    cart_product_qty:cart_product_qty,
-                    _token:_token,
-                },
-                success:function(data){
-                    alert(data);
-                },
+                    url: '{{url("/add-cart-ajax")}}',
+                    method: 'POST',
+                    data: {
+                        cart_product_id: cart_product_id,
+                        cart_product_name: cart_product_name,
+                        cart_product_image: cart_product_image,
+                        cart_product_price: cart_product_price,
+                        cart_product_qty: cart_product_qty,
+                        _token: _token,
+                    },
+                    success: function(data) {
+                        alert(data);
+                    },
                     url: '{{route("addfcartajax")}}',
                     method: 'POST',
                     data: {
