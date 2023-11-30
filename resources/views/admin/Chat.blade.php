@@ -88,7 +88,7 @@
             type: 'POST',
             url: `{{url('sendAdmin/chat')}}`,
             headers: {
-                'X-CSRF-TOKEN': $('meta[name=" csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
                 "_token": "{{ csrf_token() }}",
@@ -102,7 +102,6 @@
     $(document).ready(function() {
         $('.chat_list').on('click', function(event) {
             console.log("check ownerId", ownerId);
-
             if (!ownerId || ownerId != $(this).data('id')) {
                 ownerId = $(this).data('id');
                 console.log("check ownerId", ownerId);

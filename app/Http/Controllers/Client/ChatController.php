@@ -44,7 +44,6 @@ class ChatController extends Controller
     public function sendChatAdmin(Request $request)
     {
         $adminId = Session::get('admin_id');
-
         SendMessage::dispatch($request->channel, $request->to, $adminId, $request->body);
     }
 
