@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CouponController;
 use App\Http\Controllers\Admin\DeliveryController;
+use App\Http\Controllers\PayPalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,7 @@ use App\Http\Controllers\Admin\DeliveryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 
 
 // login
@@ -168,3 +170,8 @@ Route::post('/search-danhmuc', [CategoryController::class, 'search_danhmuc'])->n
 Route::post('/select-delivery-home', [CheckoutController::class, 'select_delivery_home'])->name('select_delivery_home');
 Route::post('/calculate-fee', [CheckoutController::class, 'calculate_fee']);
 Route::get('/del-fee', [CheckoutController::class, 'del_fee']);
+
+
+//cong thanh toan
+
+Route::post('/vnpay', [CheckoutController::class, 'vnpay'])->name('vnpay');

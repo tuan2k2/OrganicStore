@@ -437,6 +437,13 @@
                                             <input type="submit" style=" margin-top: 20px; display: block;color: black;" class="site-btn" name="check_coupon" value="Áp mã giảm giá">
                                         </form>
                                     </div>
+
+                                    <div class="col-lg-12" style=" display: flex; justify-content: space-between;">
+                                        <form action="{{route('vnpay')}}" method="POST">
+                                            @csrf
+                                            <button type="submit" name="redirect" class="primary-btn" style="  text-align: center;text-decoration: none;color: #fff;"> Thanh Toán VNPay</a>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -868,7 +875,7 @@
                 return actions.payment.create({
                     transactions: [{
                         amount: {
-                            total: `usd`,
+                            total: `${$usd}`,
                             currency: 'USD'
                         }
                     }]
