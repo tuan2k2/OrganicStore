@@ -487,7 +487,7 @@
                                         <li>
                                             <a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>
 
-                                            Phí vận chuyển <span>{{number_format(Session::get('fee'),0,',','.')}}VNĐ</span>
+                                            Phí vận chuyển <span>{{number_format(Session::get('fee'),0,',','.')}} VNĐ</span>
                                         </li>
                                         <?php $total_after_fee = $total + Session::get('fee'); ?>
                                         @endif
@@ -502,7 +502,7 @@
                                                 }elseif(Session::get('fee') && Session::get('coupon')){
                                                 $total_after = $total_after_coupon;
                                                 $total_after = $total_after + Session::get('fee');
-                                                echo number_format($total_after,0,',','.').'đ';
+                                                echo number_format($total_after,0,',','.').' VNĐ';
                                                 }elseif(!Session::get('fee') && !Session::get('coupon')){
                                                 $total_after = $total;
                                                 echo number_format($total_after,0,',','.').'đ';

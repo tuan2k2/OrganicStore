@@ -1,5 +1,9 @@
 @extends('frontend.format')
 @section('content')
+<?php
+
+use Illuminate\Support\Facades\Session;
+?>
 <section class="breadcrumb-section set-bg" data-setbg=" {{ asset('frontend/img/breadcrumb.jpg')}}">
     <div class="container">
         <div class="row">

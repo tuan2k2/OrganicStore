@@ -6,12 +6,11 @@
     <meta name="description" content="Ogani Template" />
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Ogani | Template</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" />
@@ -22,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/sweetalert.css') }}" type="text/css" />
 </head>
 
 <body>
@@ -43,6 +43,10 @@
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-shopping-bag"></i>
+                        <span>3</span></a>
+                </li>
+                <li>
+                    <a href="/chat"><i class="fa fa-commenting"></i>
                         <span>3</span></a>
                 </li>
             </ul>
@@ -232,7 +236,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
-    <div id="notification" class="mx-3 invisible"></div>
+
     @yield('content')
 
     <!-- Footer Section Begin -->
@@ -315,6 +319,7 @@
             </div>
         </div>
     </footer>
+
     <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ asset('frontend/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
@@ -324,6 +329,60 @@
     <script src="{{ asset('frontend/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     <script src="{{ asset('frontend/js/sweetalert.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.add-to-cart').click(function() {
+                var id = $(this).data('id_product');
+                var cart_product_id = $('.card_product_id_' + id).val();
+                var cart_product_name = $('.card_product_name_' + id).val();
+                var cart_product_image = $('.card_product_image_' + id).val();
+                var cart_product_price = $('.card_product_price_' + id).val();
+                var cart_product_qty = $('.card_product_qty_' + id).val();
+                var _token = $('input[name="_token"]').val();
+                $.ajax({
+                    url: '{{url("/add-cart-ajax")}}',
+                    method: 'POST',
+                    data: {
+                        cart_product_id: cart_product_id,
+                        cart_product_name: cart_product_name,
+                        cart_product_image: cart_product_image,
+                        cart_product_price: cart_product_price,
+                        cart_product_qty: cart_product_qty,
+                        _token: _token,
+                    },
+                    success: function(data) {
+                        alert(data);
+                    },
+                    url: '{{route("addfcartajax")}}',
+                    method: 'POST',
+                    data: {
+                        cart_product_id: cart_product_id,
+                        cart_product_name: cart_product_name,
+                        cart_product_image: cart_product_image,
+                        cart_product_price: cart_product_price,
+                        cart_product_qty: cart_product_qty,
+                        _token: _token,
+                    },
+                    success: function(data) {
+                        swal({
+                                title: "Đã thêm sản phẩm vào giỏ hàng",
+                                text: "Bạn có thể mua hàng tiếp hoặc tới giỏ hàng để tiến hành thanh toán",
+                                showCancelButton: true,
+                                cancelButtonText: "Xem tiếp",
+                                confirmButtonClass: "btn-success",
+                                confirmButtonText: "Đi đến giỏ hàng",
+                                closeOnConfirm: false
+                            },
+                            function() {
+                                window.location.href = "{{route('ShowGioHangProduct')}}";
+                            });
+
+                    },
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
