@@ -162,12 +162,20 @@ class CheckoutController extends Controller
                     $output .= '<option value="' . $province->maqh . '">' . $province->name . '</option>';
                 }
             } else {
+
                 $select_wards = Wards::where('maqh', $data['ma_id'])->orderby('xaid', 'ASC')->get();
                 $output .= '<option>---Chọn xã phường---</option>';
                 foreach ($select_wards as $key => $ward) {
                     $output .= '<option value="' . $ward->xaid . '">' . $ward->name . '</option>';
                 }
             }
+            echo $output;
         }
+    }
+
+    public function del_fee()
+    {
+        Session::forget('fee');
+        return redirect()->back();
     }
 }

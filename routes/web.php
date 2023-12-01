@@ -116,7 +116,7 @@ Route::post('/search', [HomeController::class, 'searchController'])->name('searc
 
 Route::get('/chat', [ChatController::class, 'getChat'])->name('chat');
 Route::post('/send/chat', [ChatController::class, 'sendChat'])->name('chat.send');
-Route::post('/sendAdmin/chat', [ChatController::class, 'sendChatAdmin'])->name('chat.send');
+Route::post('/sendAdmin/chat', [ChatController::class, 'sendChatAdmin'])->name('chatAdmin.send');
 Route::post("sockets/connect", [ChatController::class, 'connect']);
 Route::get('/users', 'ChatController@showUser');
 
@@ -166,4 +166,5 @@ Route::post('/search-danhmuc', [CategoryController::class, 'search_danhmuc'])->n
 //
 
 Route::post('/select-delivery-home', [CheckoutController::class, 'select_delivery_home'])->name('select_delivery_home');
-Route::post('/calculate-fee', [CheckoutController::class, ' calculate_fee']);
+Route::post('/calculate-fee', [CheckoutController::class, 'calculate_fee']);
+Route::get('/del-fee', [CheckoutController::class, 'del_fee']);
