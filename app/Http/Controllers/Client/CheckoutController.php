@@ -186,10 +186,10 @@ class CheckoutController extends Controller
         $vnp_TmnCode = "NF5X0P8S"; //Mã website tại VNPAY 
         $vnp_HashSecret = "FGRMHSPQJQEYGTMOXIJPKYCDXOTMUWJI"; //Chuỗi bí mật
 
-        $vnp_TxnRef = '2'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = '14'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = 'Thanh toán đơn hàng test';
         $vnp_OrderType = 'billpayment';
-        $vnp_Amount = 20000 * 100;
+        $vnp_Amount = 365000 * 100;
         $vnp_Locale = 'vn';
         $vnp_BankCode = 'NCB';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
@@ -243,6 +243,7 @@ class CheckoutController extends Controller
         );
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
+
             die();
         } else {
             echo json_encode($returnData);

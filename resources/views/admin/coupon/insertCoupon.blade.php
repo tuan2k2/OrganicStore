@@ -46,7 +46,7 @@
                             <input type="text" name="coupon_number" class="form-control" id="exampleInputEmail1" placeholder="Nhập số phần trăm hoặc tiền giảm">
                         </div>
                 </div>
-                <div class="form-group">
+                <div class="btn-container1">
                     <button type="submit" class="btn btn-info">Thêm mã giảm giá</button>
                     </form>
                 </div>

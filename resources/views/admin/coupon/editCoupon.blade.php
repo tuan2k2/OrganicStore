@@ -18,7 +18,7 @@
             ?>
             <div class="panel-body">
                 <div class="position-center">
-                @foreach($editCoupon as $key => $edit_cop)
+                    @foreach($editCoupon as $key => $edit_cop)
                     <form role="form" action="{{ URL::to('update-coupon', ['coupon_id' => $edit_cop->coupon_id]) }}" method="post" enctype="multipart/form-data">
                         {{csrf_field()}}
                         <div class="form-group">
@@ -47,7 +47,7 @@
                             <input type="text" name="coupon_number" class="form-control" id="exampleInputEmail1" value="{{$edit_cop->coupon_number}}">
                         </div>
                 </div>
-                <div class="form-group">
+                <div class="btn-container1">
                     <button type="submit" class="btn btn-info" name="editCoupon">Cập nhật mã khuyến mãi</button>
                     </form>
                     @endforeach
