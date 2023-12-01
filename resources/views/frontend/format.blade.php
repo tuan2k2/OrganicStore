@@ -6,12 +6,11 @@
     <meta name="description" content="Ogani Template" />
     <meta name="keywords" content="Ogani, unica, creative, html" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Ogani | Template</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}" type="text/css" />
@@ -22,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/owl.carousel.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/slicknav.min.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/sweetalert.css') }}" type="text/css" />
 </head>
 
 <body>
@@ -43,6 +43,10 @@
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-shopping-bag"></i>
+                        <span>3</span></a>
+                </li>
+                <li>
+                    <a href="/chat"><i class="fa fa-commenting"></i>
                         <span>3</span></a>
                 </li>
             </ul>
@@ -232,7 +236,7 @@
         </div>
     </section>
     <!-- Hero Section End -->
-    <div id="notification" class="mx-3 invisible"></div>
+
     @yield('content')
 
     <!-- Footer Section Begin -->
@@ -374,33 +378,6 @@
                             });
 
                     },
-                });
-            });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.choose').on('change', function() {
-                var action = $(this).attr('id');
-                var ma_id = $(this).val();
-                var _token = $('input[name="_token"]').val();
-                var result = '';
-                if (action == 'city') {
-                    result = 'province';
-                } else {
-                    result = 'wards';
-                }
-                $.ajax({
-                    url: '{{url("/select-delivery-home")}}',
-                    method: 'POST',
-                    data: {
-                        action: action,
-                        ma_id: ma_id,
-                        _token: _token
-                    },
-                    success: function(data) {
-                        $('#' + result).html(data);
-                    }
                 });
             });
         });
