@@ -87,7 +87,7 @@
             type: 'POST',
             url: `{{url('send/chat')}}`,
             headers: {
-                'X-CSRF-TOKEN': $('meta[name=" csrf-token"]').attr('content')
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {
                 "_token": "{{ csrf_token() }}",

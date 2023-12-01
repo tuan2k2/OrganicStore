@@ -116,7 +116,7 @@ Route::post('/search', [HomeController::class, 'searchController'])->name('searc
 
 Route::get('/chat', [ChatController::class, 'getChat'])->name('chat');
 Route::post('/send/chat', [ChatController::class, 'sendChat'])->name('chat.send');
-Route::post('/sendAdmin/chat', [ChatController::class, 'sendChatAdmin'])->name('chat.send');
+Route::post('/sendAdmin/chat', [ChatController::class, 'sendChatAdmin'])->name('chatAdmin.send');
 Route::post("sockets/connect", [ChatController::class, 'connect']);
 Route::get('/users', 'ChatController@showUser');
 
